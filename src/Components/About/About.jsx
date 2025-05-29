@@ -109,7 +109,7 @@ const About = () => {
 
       {/* Call to Action */}
       <motion.div
-        className="bg-blue-700 text-white py-16 text-center"
+        className="bg-white text-black py-16 text-center"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -122,7 +122,7 @@ const About = () => {
         </p>
         <Link to="/Services">
           <motion.button
-            className="bg-white text-blue-700 px-6 py-3 rounded-full font-semibold hover:bg-blue-100 transition"
+            className="bg-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-100 transition"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

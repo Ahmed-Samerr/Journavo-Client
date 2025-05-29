@@ -34,7 +34,7 @@ const WishlistPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-white py-10 px-4 sm:px-8 md:px-16 animate-fade-in">
-      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-pink-700 text-center mb-8">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-800 text-center mb-8">
         Your Wishlist
       </h1>
 
@@ -46,7 +46,7 @@ const WishlistPage = () => {
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-xl overflow-hidden text-sm sm:text-base">
             <thead>
-              <tr className="bg-pink-100 text-pink-800">
+              <tr className="bg-blue-100 text-blue-800">
                 <th className="p-3 sm:p-4">Image</th>
                 <th className="p-3 sm:p-4">Title</th>
                 <th className="p-3 sm:p-4">Available Date</th>

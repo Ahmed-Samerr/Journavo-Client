@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { motion } from "framer-motion";
-import logo from "../../assets/error.svg"; // Ensure the file is placed in the same directory
+import logo from "../../assets/LoadingLogo.png"; // Ensure the file is placed in the same directory
 import "./loading.css";
 import { UserContext } from "../../Context/UserContext";
 

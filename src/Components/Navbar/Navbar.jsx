@@ -2,10 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import logo from "../../assets/Logo.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
+import "./Navbar.module.css";
 
 export default function Navbar() {
-  const { userLogin, setuserLogin } = useContext(UserContext);
   const navigate = useNavigate();
+  const { userLogin, setuserLogin } = useContext(UserContext);
 
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -29,18 +30,29 @@ export default function Navbar() {
     navigate("/login");
   }
 
+  const handleScrollToHome = () => {
+    setTimeout(() => {
+      navigate("/");
+    }, 10);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 bg-white transition-all duration-500 ${
         scrolled ? "shadow-md" : ""
       }`}
     >
-      <div className="flex items-center justify-between mx-auto max-w-screen-xl p-4">
+      <div className="flex items-end justify-between mx-auto  p-4">
         {/* Logo + hamburger container */}
         <div className="flex justify-between items-center w-full md:w-auto">
-          <Link to="/">
-            <img src={logo} width="180px" className="h-20-auto" alt="Logo" />
-          </Link>
+          <img
+            src={logo}
+            onClick={handleScrollToHome}
+            width="120px"
+            className="h-20-auto"
+            alt="Logo"
+          />
 
           {/* Hamburger Button */}
           <button

@@ -1,0 +1,15 @@
+nav > div {
+  width: 95%;
+}
+
+@media (min-width: 768px) {
+  nav li {
+    font-size: 0.7em !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  nav li {
+    font-size: 1em !important;
+  }
+}
