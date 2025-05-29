@@ -80,13 +80,13 @@ const WishlistPage = () => {
                     <div>
                       <button
                         onClick={handleAddToCart}
-                        className="bg-green-100 hover:bg-green-200 text-green-700 w-3/4 px-5 py-5 rounded text-xs sm:text-sm font-medium transition-all duration-200"
+                        className="bg-green-100 hover:bg-green-200 text-green-700 w-3/5 mb-2 px-2 py-2 rounded text-xs sm:text-sm font-medium transition-all duration-200"
                       >
                         Add to Cart
                       </button>
                       <button
                         onClick={() => handleRemove(item.id)}
-                        className="bg-red-100 hover:bg-red-200 text-red-600 w-3/4 px-5 py-5 rounded text-xs sm:text-sm font-medium transition-all duration-200"
+                        className="bg-red-100 hover:bg-red-200 text-red-600 w-3/5 px-2 py-2 rounded text-xs sm:text-sm font-medium transition-all duration-200"
                       >
                         Remove
                       </button>
