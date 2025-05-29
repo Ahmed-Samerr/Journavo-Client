@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 
 export default function Footer() {
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   return (
     <>
       <footer className="bg-blue-800">
@@ -31,6 +34,7 @@ export default function Footer() {
                 <Link
                   className="text-white transition hover:text-white/75"
                   to="/About"
+                  onClick={handleScrollToTop}
                 >
                   About
                 </Link>
@@ -40,6 +44,7 @@ export default function Footer() {
                 <Link
                   className="text-white transition hover:text-white/75"
                   to="/Services"
+                  onClick={handleScrollToTop}
                 >
                   Services
                 </Link>
@@ -49,6 +54,7 @@ export default function Footer() {
                 <Link
                   className="text-white transition hover:text-white/75"
                   to="/Cart"
+                  onClick={handleScrollToTop}
                 >
                   Cart
                 </Link>
@@ -58,6 +64,7 @@ export default function Footer() {
                 <Link
                   className="text-white transition hover:text-white/75"
                   to="/Booking"
+                  onClick={handleScrollToTop}
                 >
                   Booking
                 </Link>
@@ -67,6 +74,7 @@ export default function Footer() {
                 <Link
                   className="text-white transition hover:text-white/75"
                   to="/Wishlist"
+                  onClick={handleScrollToTop}
                 >
                   Wishlist
                 </Link>
