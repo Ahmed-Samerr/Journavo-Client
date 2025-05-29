@@ -39,7 +39,7 @@ let x = createBrowserRouter([
         ),
       },
       {
-        path: "cart",
+        path: "Cart",
         element: (
           <ProtectedRoute>
             <Cart />

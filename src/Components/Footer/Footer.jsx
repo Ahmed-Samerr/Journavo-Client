@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Footer() {
   return (
     <>
@@ -26,48 +28,48 @@ export default function Footer() {
 
             <ul className="mt-12 mt-lg-5 flex flex-wrap justify-center gap-5 md:gap-8 lg:mt-0 lg:justify-end lg:gap-12">
               <li>
-                <a
+                <Link
                   className="text-white transition hover:text-white/75"
-                  href="/About"
+                  to="/About"
                 >
                   About
-                </a>
+                </Link>
               </li>
 
               <li>
-                <a
+                <Link
                   className="text-white transition hover:text-white/75"
-                  href="/Services"
+                  to="/Services"
                 >
                   Services
-                </a>
+                </Link>
               </li>
 
               <li>
-                <a
+                <Link
                   className="text-white transition hover:text-white/75"
-                  href="/Cart"
+                  to="/Cart"
                 >
                   Cart
-                </a>
+                </Link>
               </li>
 
               <li>
-                <a
+                <Link
                   className="text-white transition hover:text-white/75"
-                  href="/Booking"
+                  to="/Booking"
                 >
                   Booking
-                </a>
+                </Link>
               </li>
 
               <li>
-                <a
+                <Link
                   className="text-white transition hover:text-white/75"
-                  href="/Wishlist"
+                  to="/Wishlist"
                 >
                   Wishlist
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
