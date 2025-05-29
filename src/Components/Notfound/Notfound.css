@@ -1,0 +1,24 @@
+.notfound {
+  top: 0;
+  left: 0;
+  height: 100dvh;
+  width: 100%;
+  position: absolute;
+  z-index: 50;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.notfound h1 {
+  font-size: 3em;
+  color: red;
+}
+
+.notfound p {
+  color: grey;
+  font-size: 1em;
+}
