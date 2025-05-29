@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import aboutOfMainImg from "../../assets/aboutphoto.avif";
 export default function AboutOfMain() {
   return (
     <>
@@ -7,7 +7,7 @@ export default function AboutOfMain() {
         <div className="container mx-auto flex flex-col md:flex-row items-center px-6">
           <div className="md:w-1/2 mb-8 md:mb-0">
             <img
-              src="src/assets/aboutphoto.avif" // استبدله بصورة مناسبة
+              src={aboutOfMainImg} // استبدله بصورة مناسبة
               alt="Discover Egypt"
               className="rounded-2xl shadow-lg"
             />
