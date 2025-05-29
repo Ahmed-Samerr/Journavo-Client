@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import logo from "../../assets/Logo.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
-import "./Navbar.module.css";
+import "./Navbar.css";
 
 export default function Navbar() {
   const navigate = useNavigate();
