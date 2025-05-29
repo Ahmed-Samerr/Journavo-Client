@@ -1,22 +1,24 @@
 import { Link } from "react-router-dom";
-
+import img1 from "../../assets/hotelbooking.avif";
+import img2 from "../../assets/tripsbook.avif";
+import img3 from "../../assets/transports.jpg";
 const services = [
   {
     title: "Hotel Booking",
     desc: "Easily find and book top-rated hotels across Egypt for every budget comfort and convenience guaranteed",
-    img: "src/assets/hotelbooking.avif",
+    img: img1,
     link: "/hotels",
   },
   {
     title: "Trips Booking",
     desc: "Plan your perfect trip with ease book unforgettable experiences across Egypt in just a few clicks.",
-    img: "src/assets/tripsbook.avif",
+    img: img2,
     link: "/trips",
   },
   {
     title: "Transport Services",
     desc: "Enjoy smooth, hassle-free travel with our modern, air-conditioned transport services designed for your comfort and safety",
-    img: "src/assets/transport.jpg",
+    img: img3,
     link: "/transports",
   },
 ];
