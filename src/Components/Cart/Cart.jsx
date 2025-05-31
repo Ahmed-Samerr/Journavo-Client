@@ -62,7 +62,7 @@ const CartPage = () => {
   };
 
   return (
-    <div className="pt-20 min-h-screen bg-gradient-to-b from-blue-50 to-white py-10 px-4 sm:px-8 md:px-12 lg:px-24 animate-fade-in">
+    <div className="pt-32 min-h-screen bg-gradient-to-b from-blue-50 to-white px-4 sm:px-8 md:px-12 lg:px-24 animate-fade-in">
       <h1 className="text-3xl md:text-4xl font-bold text-blue-800 text-center mb-8">
         Your Booking Cart
       </h1>
@@ -93,7 +93,9 @@ const CartPage = () => {
                 </td>
                 <td className="p-4 font-medium text-gray-800">{item.title}</td>
                 <td className="p-4 text-gray-600">{item.date}</td>
-                <td className="p-4 font-semibold text-blue-700">{item.price}</td>
+                <td className="p-4 font-semibold text-blue-700">
+                  {item.price}
+                </td>
                 <td className="p-4">
                   <button
                     onClick={() => handleRemove(item.id)}
@@ -111,8 +113,26 @@ const CartPage = () => {
       <div className="w-full max-w-md mx-auto bg-white rounded-xl shadow-md p-6 text-center space-y-4 hover:scale-105 transition-transform duration-300">
         <h3 className="text-xl font-bold text-gray-700">Total: {total} EGP</h3>
         <button
-          onClick={handleConfirmBooking}  // اضفت هنا الحدث
-          className="w-full py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300"
+          onClick={handleConfirmBooking}
+          className="
+            w-full
+            max-w-xs
+            md:max-w-sm
+            mx-auto
+            py-3
+            sm:py-4
+            bg-blue-600
+            text-white
+            font-semibold
+            rounded-lg
+            hover:bg-blue-700
+            focus:outline-none
+            focus:ring-4
+            focus:ring-blue-300
+            transition-all
+            duration-300
+            block
+          "
         >
           Confirm Booking
         </button>

@@ -1,20 +1,26 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 
 const Booking = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    destination: '',
-    checkIn: '',
-    checkOut: '',
+    name: "",
+    email: "",
+    phone: "",
+    destination: "",
+    checkIn: "",
+    checkOut: "",
     guests: 1,
-    travelClass: 'Economy',
-    requests: '',
+    travelClass: "Economy",
+    requests: "",
   });
 
-  const destinations = ['Cairo', 'Alexandria', 'Luxor', 'Aswan', 'Sharm El-Sheikh'];
-  const travelClasses = ['Economy', 'Business', 'VIP'];
+  const destinations = [
+    "Cairo",
+    "Alexandria",
+    "Luxor",
+    "Aswan",
+    "Sharm El-Sheikh",
+  ];
+  const travelClasses = ["Economy", "Business", "VIP"];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,13 +29,15 @@ const Booking = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Booking Info:', formData);
-    alert('Booking submitted successfully!');
+    console.log("Booking Info:", formData);
+    alert("Booking submitted successfully!");
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-white py-12 px-4 md:px-16 animate-fade-in">
-      <h1 className="text-4xl font-bold text-center text-blue-800 mb-8">Book Your Journey Now</h1>
+      <h1 className="text-4xl font-bold text-center text-blue-800 mb-8">
+        Book Your Journey Now
+      </h1>
 
       <form
         onSubmit={handleSubmit}

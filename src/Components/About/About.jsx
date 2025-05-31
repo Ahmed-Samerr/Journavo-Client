@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const About = () => {
   return (
-    <div className="bg-white">
+    <div className="bg-white py-16">
       {/* Hero Section */}
       <motion.div
         className="bg-blue-100 py-16 px-4 sm:px-6 md:px-12 lg:px-24 text-center"

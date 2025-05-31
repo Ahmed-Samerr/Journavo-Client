@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import img1 from "../../assets/hotelbooking.avif";
 import img2 from "../../assets/tripsbook.avif";
 import img3 from "../../assets/transports.jpg";
+
 const services = [
   {
     title: "Hotel Booking",
@@ -24,8 +26,11 @@ const services = [
 ];
 
 export default function ServicesWithImages() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   return (
-    <section className="py-16 px-4 sm:px-6 md:px-8 bg-gray-50">
+    <section className="py-28 px-4 sm:px-6 md:px-8 bg-gray-50">
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-4xl font-bold mb-3 text-gray-900">Services</h2>
         <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">

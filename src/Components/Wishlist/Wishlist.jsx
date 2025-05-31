@@ -33,7 +33,7 @@ const WishlistPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-white py-10 px-4 sm:px-8 md:px-16 animate-fade-in">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-white py-28 px-4 sm:px-8 md:px-16 animate-fade-in">
       <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-800 text-center mb-8">
         Your Wishlist
       </h1>
@@ -64,29 +64,49 @@ const WishlistPage = () => {
                     <img
                       src={item.image}
                       alt={item.title}
-                      className=" w-16 h-12 sm:w-20 sm:h-16 object-cover rounded"
+                      className="w-16 h-12 sm:w-20 sm:h-16 object-cover rounded"
                     />
                   </td>
                   <td className="text-center p-3 sm:p-4 font-medium text-gray-800">
                     {item.title}
                   </td>
-                  <td className=" text-center p-3 sm:p-4 text-gray-600">
+                  <td className="text-center p-3 sm:p-4 text-gray-600">
                     {item.date}
                   </td>
                   <td className="text-center p-3 sm:p-4 font-semibold text-pink-600">
                     {item.price}
                   </td>
-                  <td className="p-3 sm:p-4 text-center ">
-                    <div>
+                  <td className="p-3 sm:p-4 text-center">
+                    <div className="flex flex-col items-center space-y-2 sm:space-y-3">
                       <button
                         onClick={handleAddToCart}
-                        className="bg-green-100 hover:bg-green-200 text-green-700 w-3/5 mb-2 px-2 py-2 rounded text-xs sm:text-sm font-medium transition-all duration-200"
+                        className="
+                          w-4/5 sm:w-3/5 md:w-2/5
+                          bg-green-100 hover:bg-green-200
+                          text-green-700
+                          px-3 py-2
+                          rounded
+                          text-xs sm:text-sm md:text-base
+                          font-medium
+                          transition-all duration-200
+                          focus:outline-none focus:ring-2 focus:ring-green-300
+                        "
                       >
                         Add to Cart
                       </button>
                       <button
                         onClick={() => handleRemove(item.id)}
-                        className="bg-red-100 hover:bg-red-200 text-red-600 w-3/5 px-2 py-2 rounded text-xs sm:text-sm font-medium transition-all duration-200"
+                        className="
+                          w-4/5 sm:w-3/5 md:w-2/5
+                          bg-red-100 hover:bg-red-200
+                          text-red-600
+                          px-3 py-2
+                          rounded
+                          text-xs sm:text-sm md:text-base
+                          font-medium
+                          transition-all duration-200
+                          focus:outline-none focus:ring-2 focus:ring-red-300
+                        "
                       >
                         Remove
                       </button>

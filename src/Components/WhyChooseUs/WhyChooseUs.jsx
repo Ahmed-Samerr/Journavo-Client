@@ -12,14 +12,14 @@ export default function WhyChooseUs() {
         }}
       >
         <div className="bg-black bg-opacity-60  py-12">
-          <div className="max-w-6xl mx-auto text-center">
+          <div className="max-w-6xl mx-auto text-center p-5">
             <h2 className="text-4xl font-bold mb-4">WHY CHOOSE US?</h2>
             <p className="text-lg mb-12">
               YOUR GATEWAY TO SAFE AND MEMORABLE ADVENTURES IN EGYPT
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5c p-5">
+            <div className=" grid grid-cols-1 md:grid-cols-3 gap-10 p-6">
               {/* Box 1 */}
-              <div className="flex flex-col items-center">
+              <div className="w-[100%] flex flex-col items-center">
                 <div className="bg-white text-orange-500 p-4 rounded-full mb-4">
                   <FaSuitcase className="text-2xl" />
                 </div>
