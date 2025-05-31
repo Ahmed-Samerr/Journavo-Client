@@ -1,4 +1,5 @@
 import MainSlider from "../MainSlider/MainSlider";
+import Video from "../../../public/videos/bg-video.mp4";
 
 export default function Home() {
   return (
@@ -11,7 +12,7 @@ export default function Home() {
           muted
           loop
         >
-          <source src="/videos/bg-video.mp4" type="video/mp4" />
+          <source src={Video} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 
