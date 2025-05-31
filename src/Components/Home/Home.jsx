@@ -1,20 +1,31 @@
 import MainSlider from "../MainSlider/MainSlider";
 import Video from "../../../public/videos/bg-video.mp4";
+import LazyLoad from "react-lazyload";
 
 export default function Home() {
   return (
     <div className="relative w-full">
       <section className="relative w-full h-screen overflow-hidden">
-        {/* Background Video */}
-        <video
-          className="absolute top-0 left-0 w-full h-full object-cover z-0"
-          autoPlay
-          muted
-          loop
+        {/* Lazy Load Background Video */}
+        <LazyLoad
+          once
+          offset={100}
+          height="100vh"
+          placeholder={
+            <div className="absolute top-0 left-0 w-full h-full bg-black z-0" />
+          }
         >
-          <source src={Video} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+          <video
+            className="absolute top-0 left-0 w-full h-full object-cover z-0"
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            <source src={Video} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </LazyLoad>
 
         {/* Overlay Content */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent z-10 flex flex-col items-center justify-center p-6 sm:p-12">
