@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 // Import your images
 import hotelsImg from "../../assets/hotels.jpg";
-import tripsImg from "../../assets/trips.jpg";
 import transportsImg from "../../assets/transports.jpg";
+import tripsImg from "../../assets/trips.jpg";
 
 const Admin = () => {
   const sections = [
@@ -13,23 +14,23 @@ const Admin = () => {
       description:
         "Manage hotel listings, availability, and bookings across Egypt.",
       image: hotelsImg,
-      link: "/admin/hotels",
+      link: "/AdminHotels",
     },
     {
       id: 2,
-      title: "Trips",
-      description:
-        "Organize and promote exciting trips and tours for customers.",
-      image: tripsImg,
-      link: "/admin/trips",
-    },
-    {
-      id: 3,
       title: "Transports",
       description:
         "Manage transport options including buses, trains, and more.",
       image: transportsImg,
-      link: "/admin/transports",
+      link: "/AdminTransports",
+    },
+    {
+      id: 3,
+      title: "Trips",
+      description:
+        "Organize and promote exciting trips and tours for customers.",
+      image: tripsImg,
+      link: "/AdminTrips",
     },
   ];
 
@@ -54,19 +55,19 @@ const Admin = () => {
             />
             <div className="p-4 sm:p-6 flex-1 flex flex-col justify-between">
               <div>
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
+                <h2 className="text-center text-xl sm:text-2xl font-bold text-gray-800">
                   {section.title}
                 </h2>
-                <p className="text-gray-600 mt-2 text-sm sm:text-base">
+                <p className="text-center text-gray-600 mt-2 text-sm sm:text-base">
                   {section.description}
                 </p>
               </div>
-              <a
-                href={section.link}
-                className=" mt-4 w-full bg-blue-600 text-white text-center py-2 text-sm sm:text-base rounded-lg hover:bg-blue-700 transition-all duration-300"
+              <Link
+                to={section.link}
+                className="mt-4 w-full bg-blue-600 text-white text-center py-2 text-sm sm:text-base rounded-lg hover:bg-blue-700 transition-all duration-300"
               >
                 See More
-              </a>
+              </Link>
             </div>
           </motion.div>
         ))}
