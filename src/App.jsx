@@ -36,7 +36,14 @@ let x = createBrowserRouter([
       { path: "Services", element: <Services /> },
       { path: "Trips", element: <Trips /> },
       { path: "Hotels", element: <Hotels /> },
-      { path: "Wishlist", element: <Wishlist /> },
+      {
+        path: "Wishlist",
+        element: (
+          <ProtectedRoute>
+            <Wishlist />
+          </ProtectedRoute>
+        ),
+      },
 
       // Pages that require authentication (token)
       {
