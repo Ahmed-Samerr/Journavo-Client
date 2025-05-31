@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // استيراد useNavigate
-import Nile from "../../assets/Nile-Cruise.jpg";
+import Nile from "../../assets/NileCruise.jpg";
 import NewMuseum from "../../assets/NewMuseum.jpg";
 import sharm from "../../assets/sharm.jpg";
 import BalloonRide from "../../assets/BalloonRide.jpg";

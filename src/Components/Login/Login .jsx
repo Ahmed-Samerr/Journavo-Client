@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-
 import { useFormik } from "formik";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
@@ -8,7 +7,6 @@ import { UserContext } from "../../Context/UserContext";
 
 export default function Login() {
   const { setuserLogin } = useContext(UserContext);
-
   const navigate = useNavigate();
   const [ApiError, setApiError] = useState("");
   const [isLoading, setisLoading] = useState(false);
@@ -19,17 +17,14 @@ export default function Login() {
       .post("https://ecommerce.routemisr.com/api/v1/auth/signin", values)
       .then((res) => {
         setisLoading(false);
-
         if (res.data.message == "success") {
           localStorage.setItem("userToken", res.data.token);
           setuserLogin(res.data.token);
           navigate("/");
         }
       })
-
       .catch((res) => {
         setisLoading(false);
-        //console.log(res.response.data.message)
         setApiError(res.response.data.message);
       });
   }
@@ -41,53 +36,29 @@ export default function Login() {
       .required("password is required"),
   });
 
-  /*function validateform(values){
-
-let errors = {};
-
-if (!values.name ){
-  errors.name = "name is required";
-}
-else if (!/^[A-Z][a-z]{3}$/.test(values.name)){
-  errors.name=" not valid name"
-}
-
-if(!values.phone ){
-  errors.phone = "phone is required"
-}
-else if (!/^01[0125][0-9]{8}$/.test(values.phone)){
-  errors.phone = "not valid phone number"
-}
-
-return errors;
-
-
-}*/
-
   let formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-
     validationSchema,
-
     onSubmit: handleLogin,
   });
 
   return (
-    <section className="h-[50dvh]	mt-14">
-      {ApiError ? (
-        <div className="w-1/2 mx-auto bg-red-600 text-white font-bold rounded-lg p-3 ">
-          {ApiError}
-        </div>
-      ) : null}
+    <section className="h-[60dvh] flex items-center justify-center bg-gradient-to-r from-emerald-50 to-white py-8 px-4">
+      <div className="w-full max-w-md bg-white shadow-md rounded-lg p-6">
+        {ApiError ? (
+          <div className="bg-red-600 text-white font-bold rounded p-3 mb-4 text-center">
+            {ApiError}
+          </div>
+        ) : null}
 
-      <div className="py-8">
-        <h2 className="font-bold text-2xl text-emerald-600 mb-3 text-center">
+        <h2 className="font-bold text-2xl text-emerald-600 mb-6 text-center">
           Login Now
         </h2>
-        <form onSubmit={formik.handleSubmit} className="max-w-lg mx-auto">
+
+        <form onSubmit={formik.handleSubmit}>
           <div className="relative z-0 w-full mb-5 group">
             <input
               onBlur={formik.handleBlur}
@@ -96,18 +67,18 @@ return errors;
               type="email"
               name="email"
               id="email"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-emerald-500 focus:outline-none focus:ring-0 focus:border-emerald-600 peer"
+              className="block mb-7 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 focus:border-emerald-600 focus:outline-none peer"
               placeholder=" "
             />
             <label
               htmlFor="email"
-              className="left-0 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-emerald-600 peer-focus:dark:text-emerald-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              className="absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-emerald-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Enter Your Email
             </label>
           </div>
           {formik.errors.email && formik.touched.email ? (
-            <div class="p-4 mb-4 text-sm text-red-500" role="alert">
+            <div className="p-2 mb-4 text-sm text-red-500" role="alert">
               {formik.errors.email}
             </div>
           ) : null}
@@ -120,33 +91,31 @@ return errors;
               type="password"
               name="password"
               id="password"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-emerald-500 focus:outline-none focus:ring-0 focus:border-emerald-600 peer"
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 focus:border-emerald-600 focus:outline-none peer"
               placeholder=" "
             />
             <label
               htmlFor="password"
-              className="left-0 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-emerald-600 peer-focus:dark:text-emerald-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              className="absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-emerald-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Enter Your Password
             </label>
           </div>
           {formik.errors.password && formik.touched.password ? (
-            <div class="p-4 mb-4 text-sm text-red-500" role="alert">
+            <div className="p-2 mb-4 text-sm text-red-500" role="alert">
               {formik.errors.password}
             </div>
           ) : null}
 
-          <div className="flex gap-4 items-center">
+          <div className="flex flex-col sm:flex-row gap-4 items-center">
             <button
               type="submit"
-              className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
+              className="w-full sm:w-auto bg-emerald-700 hover:bg-emerald-800 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             >
               {isLoading ? <i className="fas fa-spinner fa-spin"></i> : "Login"}
             </button>
-            <Link to={"/register"}>
-              <span className="text-blue-500 underline">
-                don't you have an account? Register Now
-              </span>
+            <Link to="/register" className="text-blue-500 underline text-sm">
+              Don’t have an account? Register Now
             </Link>
           </div>
         </form>

@@ -27,46 +27,23 @@ let query = new QueryClient();
 
 let x = createBrowserRouter([
   {
-    path: "",
+    path: "/",
     element: <Layout />,
     children: [
-      {
-        index: true,
-        element: (
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
-        ),
-      },
+      // Open to all users, no token required
+      { index: true, element: <Home /> },
+      { path: "About", element: <About /> },
+      { path: "Services", element: <Services /> },
+      { path: "Trips", element: <Trips /> },
+      { path: "Hotels", element: <Hotels /> },
+      { path: "Wishlist", element: <Wishlist /> },
+
+      // Pages that require authentication (token)
       {
         path: "Cart",
         element: (
           <ProtectedRoute>
             <Cart />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "About",
-        element: (
-          <ProtectedRoute>
-            <About />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "Services",
-        element: (
-          <ProtectedRoute>
-            <Services />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "Trips",
-        element: (
-          <ProtectedRoute>
-            <Trips />
           </ProtectedRoute>
         ),
       },
@@ -78,16 +55,8 @@ let x = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      {
-        path: "Hotels",
-        element: (
-          <ProtectedRoute>
-            <Hotels />
-          </ProtectedRoute>
-        ),
-      },
-      // {path:"Transports",element:<ProtectedRoute><Transports/></ProtectedRoute>},
-      { path: "register", element: <Register /> },
+
+      // Admin pages require auth too
       {
         path: "Admin",
         element: (
@@ -120,15 +89,12 @@ let x = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+
+      // Public pages for login and register
       { path: "login", element: <Login /> },
-      {
-        path: "Wishlist",
-        element: (
-          <ProtectedRoute>
-            <Wishlist />
-          </ProtectedRoute>
-        ),
-      },
+      { path: "register", element: <Register /> },
+
+      // Catch-all 404
       { path: "*", element: <Notfound /> },
     ],
   },
@@ -140,7 +106,7 @@ export default function App() {
       <UserContextprovider>
         <CounterContextProvider>
           <QueryClientProvider client={query}>
-            <RouterProvider router={x}></RouterProvider>
+            <RouterProvider router={x} />
             <Loading />
           </QueryClientProvider>
         </CounterContextProvider>

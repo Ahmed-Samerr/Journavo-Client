@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
-import MarriottMena from "../../assets/MarriottMena.jpg"
-import FourSeasons from "../../assets/FourSeasons.jpg"
-import Steigenberger from "../../assets/Steigenberger.jpg"
-import SavoyHotel from "../../assets/SavoyHotel.jpg"
-import BaronPalace from "../../assets/BaronPalace.jpg"
-import SofitelLegend from "../../assets/SofitelLegend.jpg"
-import HiltonAlexandria from "../../assets/HiltonAlexandria.jpg"
-import RixosSeagate from "../../assets/RixosSeagate.jpg"
-import KempinskiNile from "../../assets/KempinskiNile.jpg"
+import MarriottMena from "../../assets/MarriottMena.jpg";
+import FourSeasons from "../../assets/FourSeasons.jpg";
+import Steigenberger from "../../assets/Steigenberger.jpg";
+import SavoyHotel from "../../assets/SavoyHotel.jpg";
+import BaronPalace from "../../assets/BaronPalace.jpg";
+import SofitelLegend from "../../assets/SofitelLegend.jpg";
+import HiltonAlexandria from "../../assets/HiltonAlexandria.jpg";
+import RixosSeagate from "../../assets/RixosSeagate.jpg";
+import KempinskiNile from "../../assets/KempinskiNile.jpg";
 
 const hotels = [
   {
@@ -42,7 +42,7 @@ const hotels = [
     id: 5,
     name: "Baron Palace Sahl Hasheesh",
     location: "Hurghada",
-    image: BaronPalace ,
+    image: BaronPalace,
     price: "5,000 EGP / night",
   },
   {
@@ -56,7 +56,7 @@ const hotels = [
     id: 7,
     name: "Hilton Alexandria Corniche",
     location: "Alexandria",
-    image: HiltonAlexandria ,
+    image: HiltonAlexandria,
     price: "3,000 EGP / night",
   },
   {
@@ -95,9 +95,15 @@ const Hotels = () => {
             />
             <div className="p-4 sm:p-6 flex flex-col justify-between h-48 sm:h-52">
               <div>
-                <h2 className="text-lg sm:text-xl font-bold text-gray-800">{hotel.name}</h2>
-                <p className="text-gray-600 text-sm sm:text-base">{hotel.location}</p>
-                <p className="text-blue-600 font-semibold text-sm sm:text-base mt-2">{hotel.price}</p>
+                <h2 className="text-center text-lg sm:text-xl font-bold text-gray-800">
+                  {hotel.name}
+                </h2>
+                <p className="text-center text-gray-600 text-sm sm:text-base">
+                  {hotel.location}
+                </p>
+                <p className="text-blue-600 text-center font-semibold text-sm sm:text-base mt-2">
+                  {hotel.price}
+                </p>
               </div>
               <Link
                 to="/booking"

@@ -7,7 +7,6 @@ import "./Navbar.css";
 export default function Navbar() {
   const navigate = useNavigate();
   const { userLogin, setuserLogin } = useContext(UserContext);
-
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -20,7 +19,6 @@ export default function Navbar() {
       }
     };
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -43,18 +41,17 @@ export default function Navbar() {
         scrolled ? "shadow-md" : ""
       }`}
     >
-      <div className="flex items-end justify-between mx-auto  p-4">
-        {/* Logo + hamburger container */}
+      <div className="flex items-end justify-between mx-auto p-4">
+        {/* Logo + Hamburger */}
         <div className="flex justify-between items-center w-full md:w-auto">
           <img
             src={logo}
             onClick={handleScrollToHome}
             width="120px"
-            className="h-20-auto"
+            className="h-20-auto cursor-pointer"
             alt="Logo"
           />
 
-          {/* Hamburger Button */}
           <button
             className="relative z-50 w-6 h-5 flex flex-col justify-between md:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -79,28 +76,26 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Menu */}
-        {userLogin != null && !menuOpen && (
-          <ul className="hidden md:flex gap-6 text-lg font-semibold">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/cart">Cart</Link>
-            </li>
-            <li>
-              <Link to="/Wishlist">Wishlist</Link>
-            </li>
-            <li>
-              <Link to="/Services">Services</Link>
-            </li>
-          </ul>
-        )}
+        <ul className="hidden md:flex gap-6 text-lg font-semibold">
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+          <li>
+            <Link to="/cart">Cart</Link>
+          </li>
+          <li>
+            <Link to="/Wishlist">Wishlist</Link>
+          </li>
+          <li>
+            <Link to="/Services">Services</Link>
+          </li>
+        </ul>
 
-        {/* Desktop right links + icons */}
-        <div className=" hidden md:flex items-center space-x-6">
+        {/* Desktop Right Links + Icons */}
+        <div className="hidden md:flex items-center space-x-6">
           <div className="icons flex gap-4 text-xl">
             <li className="fab fa-facebook"></li>
             <li className="fab fa-linkedin"></li>
@@ -115,15 +110,25 @@ export default function Navbar() {
               </span>
             ) : (
               <>
-                <Link to="/login">Login</Link>
-                <Link to="/register">Register</Link>
+                <Link
+                  to="/login"
+                  style={{ display: userLogin !== null ? "none" : "block" }}
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  style={{ display: userLogin !== null ? "none" : "block" }}
+                >
+                  Register
+                </Link>
               </>
             )}
           </div>
         </div>
       </div>
 
-      {/* Mobile menu with animation */}
+      {/* Mobile Menu */}
       <ul
         className={`flex flex-col items-center justify-center fixed top-0 left-0 bg-white z-40 gap-8 text-lg font-semibold overflow-hidden md:hidden`}
         style={{
@@ -135,7 +140,7 @@ export default function Navbar() {
           transition: "width 0.3s ease, height 0.3s ease",
         }}
       >
-        {menuOpen && userLogin != null && (
+        {menuOpen && (
           <>
             <li onClick={() => setMenuOpen(false)}>
               <Link to="/">Home</Link>
@@ -153,16 +158,17 @@ export default function Navbar() {
               <Link to="/Services">Services</Link>
             </li>
 
-            {/* This SignOut will only appear in mobile */}
-            <li
-              onClick={() => {
-                SignOut();
-                setMenuOpen(false);
-              }}
-              className="cursor-pointer block md:hidden"
-            >
-              <Link to="/">SignOut</Link>
-            </li>
+            {userLogin !== null && (
+              <li
+                onClick={() => {
+                  SignOut();
+                  setMenuOpen(false);
+                }}
+                className="cursor-pointer block md:hidden"
+              >
+                SignOut
+              </li>
+            )}
           </>
         )}
       </ul>
