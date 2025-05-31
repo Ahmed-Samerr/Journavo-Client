@@ -37,7 +37,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 bg-white transition-all duration-500 ${
+      className={`absolute top-0 left-0 w-full z-50 bg-white transition-all duration-500 ${
         scrolled ? "shadow-md" : ""
       }`}
     >

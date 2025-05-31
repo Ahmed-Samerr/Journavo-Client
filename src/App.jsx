@@ -17,7 +17,7 @@ import About from "./Components/About/About";
 import Booking from "./Components/Booking/Booking";
 import Hotels from "./Components/Holtels/Hotels";
 import Trips from "./Components/Trips/Trips";
-import Transports from './Components/Transports/Transports'
+import Transports from "./Components/Transports/Transports";
 import Admin from "./Components/Admin/Admin";
 import AdminHotels from "./Components/Admin/AdminHotels";
 import AdminTrips from "./Components/Admin/AdminTrips";
@@ -117,7 +117,7 @@ let x = createBrowserRouter([
 
 export default function App() {
   return (
-    <section id="App">
+    <section id="App" className="relative">
       <UserContextprovider>
         <CounterContextProvider>
           <QueryClientProvider client={query}>

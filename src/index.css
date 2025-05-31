@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  padding-top: 80px;
-}
 .row {
   @apply flex flex-wrap py-5 px-3;
 }
