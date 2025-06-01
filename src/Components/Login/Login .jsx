@@ -17,7 +17,7 @@ export default function Login() {
       .post("https://ecommerce.routemisr.com/api/v1/auth/signin", values)
       .then((res) => {
         setisLoading(false);
-        if (res.data.message == "success") {
+        if (res.data.message === "success") {
           localStorage.setItem("userToken", res.data.token);
           setuserLogin(res.data.token);
           navigate("/");
@@ -25,14 +25,14 @@ export default function Login() {
       })
       .catch((res) => {
         setisLoading(false);
-        setApiError(res.response.data.message);
+        setApiError(res.response?.data?.message || "An error occurred");
       });
   }
 
   let validationSchema = Yup.object().shape({
     email: Yup.string().email("invalid email").required("email is required"),
     password: Yup.string()
-      .matches(/^[A-Za-z0-9]{6,10}$/, "password should be between 6 to 10 char")
+      .matches(/^[A-Za-z0-9]{6,10}$/, "password should be between 6 to 10 chars")
       .required("password is required"),
   });
 
@@ -46,20 +46,24 @@ export default function Login() {
   });
 
   return (
-    <section className="h-[60dvh] flex items-center justify-center bg-gradient-to-r from-emerald-50 to-white py-32 px-4">
-      <div className="w-full max-w-md bg-white shadow-md rounded-lg p-6">
-        {ApiError ? (
-          <div className="bg-red-600 text-white font-bold rounded p-3 mb-4 text-center">
-            {ApiError}
-          </div>
-        ) : null}
+    <>
+      {ApiError && (
+        <div className="max-w-md mx-auto bg-red-600 text-white font-bold rounded-lg p-3 my-4 text-center">
+          {ApiError}
+        </div>
+      )}
 
-        <h2 className="font-bold text-2xl text-emerald-600 mb-6 text-center">
+      <div className="py-32 px-10 sm:px-6 lg:px-8">
+        <h2 className="font-bold text-2xl sm:text-3xl md:text-4xl text-emerald-600 mb-6 text-center">
           Login Now
         </h2>
 
-        <form onSubmit={formik.handleSubmit}>
-          <div className="relative z-0 w-full mb-5 group">
+        <form
+          onSubmit={formik.handleSubmit}
+          className="max-w-md mx-auto space-y-6"
+        >
+          {/* Email */}
+          <div className="relative z-0 w-full group">
             <input
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -67,23 +71,22 @@ export default function Login() {
               type="email"
               name="email"
               id="email"
-              className="block mb-7 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 focus:border-emerald-600 focus:outline-none peer"
+              className="block py-3 px-0 w-full text-base sm:text-lg text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-emerald-600 peer"
               placeholder=" "
             />
             <label
               htmlFor="email"
-              className="absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-emerald-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              className="absolute text-sm sm:text-base text-gray-500 duration-300 transform -translate-y-6 scale-75 top-4 -z-10 origin-[0] peer-placeholder-shown:translate-y-3 peer-placeholder-shown:scale-100 peer-focus:scale-75 peer-focus:-translate-y-7 peer-focus:text-emerald-600"
             >
               Enter Your Email
             </label>
           </div>
-          {formik.errors.email && formik.touched.email ? (
-            <div className="p-2 mb-4 text-sm text-red-500" role="alert">
-              {formik.errors.email}
-            </div>
-          ) : null}
+          {formik.errors.email && formik.touched.email && (
+            <div className="text-sm text-red-500">{formik.errors.email}</div>
+          )}
 
-          <div className="relative z-0 w-full mb-5 group">
+          {/* Password */}
+          <div className="relative z-0 w-full group">
             <input
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -91,35 +94,41 @@ export default function Login() {
               type="password"
               name="password"
               id="password"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 focus:border-emerald-600 focus:outline-none peer"
+              className="block py-3 px-0 w-full text-base sm:text-lg text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-emerald-600 peer"
               placeholder=" "
             />
             <label
               htmlFor="password"
-              className="absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-emerald-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              className="absolute text-sm sm:text-base text-gray-500 duration-300 transform -translate-y-6 scale-75 top-4 -z-10 origin-[0] peer-placeholder-shown:translate-y-3 peer-placeholder-shown:scale-100 peer-focus:scale-75 peer-focus:-translate-y-7 peer-focus:text-emerald-600"
             >
               Enter Your Password
             </label>
           </div>
-          {formik.errors.password && formik.touched.password ? (
-            <div className="p-2 mb-4 text-sm text-red-500" role="alert">
-              {formik.errors.password}
-            </div>
-          ) : null}
+          {formik.errors.password && formik.touched.password && (
+            <div className="text-sm text-red-500">{formik.errors.password}</div>
+          )}
 
           <div className="flex flex-col sm:flex-row gap-4 items-center">
             <button
               type="submit"
-              className="w-full sm:w-auto bg-emerald-700 hover:bg-emerald-800 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              className="w-auto sm:w-auto text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base sm:text-lg px-10 py-1 text-center transition"
+              disabled={isLoading}
             >
-              {isLoading ? <i className="fas fa-spinner fa-spin"></i> : "Login"}
+              {isLoading ? (
+                <i className="fas fa-spinner fa-spin"></i>
+              ) : (
+                "Login"
+              )}
             </button>
-            <Link to="/register" className="text-blue-500 underline text-sm">
-              Don’t have an account? Register Now
+
+            <Link to={"/register"} className="w-full sm:w-auto text-center">
+              <span className="text-blue-500 underline text-sm sm:text-base cursor-pointer inline-block mt-1 sm:mt-0">
+                Don’t have an account? Register Now
+              </span>
             </Link>
           </div>
         </form>
       </div>
-    </section>
+    </>
   );
 }
