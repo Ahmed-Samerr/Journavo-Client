@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import gobus from "../../assets/gobus.jpg";
 import bluebus from "../../assets/bluebus.jpg";
 import SuperJet from "../../assets/SuperJet.jpg";
@@ -5,7 +6,6 @@ import WestDelta from "../../assets/WestDelta.jpg";
 import ElGouna from "../../assets/ElGouna.jpg";
 import UpperEgypt from "../../assets/UpperEgypt.jpg";
 
-const Transports = () => {
   const transports = [
     {
       id: 1,
@@ -50,6 +50,12 @@ const Transports = () => {
       price: "From 130 EGP",
     },
   ];
+
+  const Transports = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+  
   return (
     <div className="min-h-screen bg-gradient-to-r from-gray-50 to-white py-32 px-4 md:px-20">
       <h1 className="text-4xl font-bold text-blue-800 text-center mb-12 animate-fade-in">

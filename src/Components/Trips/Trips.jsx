@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import img1 from "../../assets/NileCruise.jpg";
 import img2 from "../../assets/WhiteDesert.jpg";
 import img3 from "../../assets/Snorkeling.jpg";
@@ -74,8 +75,11 @@ const trips = [
     price: "1,900 EGP / person",
   },
 ];
-
 const Trips = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-50 to-white py-32 px-4 sm:px-8 md:px-12 lg:px-20">
       <h1 className="text-3xl sm:text-4xl font-bold text-blue-800 text-center mb-12 animate-fade-in">
