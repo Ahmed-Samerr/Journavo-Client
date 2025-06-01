@@ -104,7 +104,7 @@ const About = () => {
             </h3>
             <p className="text-gray-600 text-md leading-relaxed">
               We envision a future where local travel is effortless and
-              enjoyable for everyone. Whether you're planning a weekend getaway
+              enjoyable for everyone. Whether your planning a weekend getaway
               or a full vacation, our platform is here to help you every step of
               the way.
             </p>

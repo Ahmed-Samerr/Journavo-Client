@@ -117,6 +117,6 @@ const Hotels = () => {
       </div>
     </div>
   );
+  
 };
-
 export default Hotels;
