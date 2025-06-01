@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import MarriottMena from "../../assets/MarriottMena.jpg";
 import FourSeasons from "../../assets/FourSeasons.jpg";
 import Steigenberger from "../../assets/Steigenberger.jpg";
@@ -119,4 +120,8 @@ const Hotels = () => {
   );
   
 };
+useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []); 
+  
 export default Hotels;
