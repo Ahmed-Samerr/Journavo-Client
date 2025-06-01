@@ -46,7 +46,7 @@ export default function Login() {
   });
 
   return (
-    <section className="h-[60dvh] flex items-center justify-center bg-gradient-to-r from-emerald-50 to-white py-8 px-4">
+    <section className="h-[60dvh] flex items-center justify-center bg-gradient-to-r from-emerald-50 to-white py-32 px-4">
       <div className="w-full max-w-md bg-white shadow-md rounded-lg p-6">
         {ApiError ? (
           <div className="bg-red-600 text-white font-bold rounded p-3 mb-4 text-center">

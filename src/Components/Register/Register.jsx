@@ -70,7 +70,7 @@ export default function Register() {
         </div>
       )}
 
-      <div className="py-8 px-10 sm:px-6 lg:px-8">
+      <div className="py-32 px-10 sm:px-6 lg:px-8">
         <h2 className="font-bold text-2xl sm:text-3xl md:text-4xl text-emerald-600 mb-6 text-center">
           Register Now
         </h2>
