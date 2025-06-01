@@ -77,7 +77,7 @@ const trips = [
 
 const Trips = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-50 to-white py-12 px-4 sm:px-8 md:px-12 lg:px-20">
+    <div className="min-h-screen bg-gradient-to-r from-blue-50 to-white py-32 px-4 sm:px-8 md:px-12 lg:px-20">
       <h1 className="text-3xl sm:text-4xl font-bold text-blue-800 text-center mb-12 animate-fade-in">
         Explore Top Trips in Egypt
       </h1>

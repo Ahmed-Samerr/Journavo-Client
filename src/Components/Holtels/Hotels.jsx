@@ -77,7 +77,7 @@ const hotels = [
 
 const Hotels = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-50 to-white py-10 px-4 sm:px-8 md:px-16">
+    <div className="min-h-screen bg-gradient-to-r from-blue-50 to-white py-32 px-4 sm:px-8 md:px-16">
       <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-800 text-center mb-10 animate-fade-in">
         Explore Top Hotels in Egypt
       </h1>

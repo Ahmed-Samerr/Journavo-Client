@@ -59,17 +59,6 @@ export default function Footer() {
                   Cart
                 </Link>
               </li>
-
-              <li>
-                <Link
-                  className="text-white transition hover:text-white/75"
-                  to="/Booking"
-                  onClick={handleScrollToTop}
-                >
-                  Booking
-                </Link>
-              </li>
-
               <li>
                 <Link
                   className="text-white transition hover:text-white/75"

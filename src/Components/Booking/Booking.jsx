@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Booking = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -27,14 +30,33 @@ const Booking = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  // دالة بسيطة للتحقق من صحة البيانات المطلوبة
+  const isValid = () => {
+    return (
+      formData.name.trim() !== "" &&
+      formData.email.includes("@") &&
+      formData.phone.trim() !== "" &&
+      formData.destination !== "" &&
+      formData.checkIn !== "" &&
+      formData.checkOut !== "" &&
+      new Date(formData.checkIn) <= new Date(formData.checkOut) &&
+      formData.guests > 0
+    );
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Booking Info:", formData);
-    alert("Booking submitted successfully!");
+
+    if (isValid()) {
+      // لو البيانات صح ننتقل لصفحة نجاح الحجز
+      navigate("/booking-success");
+    } else {
+      alert("يرجى ملء جميع الحقول المطلوبة بشكل صحيح.");
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-white py-12 px-4 md:px-16 animate-fade-in">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-white py-32 px-4 md:px-16 animate-fade-in">
       <h1 className="text-4xl font-bold text-center text-blue-800 mb-8">
         Book Your Journey Now
       </h1>

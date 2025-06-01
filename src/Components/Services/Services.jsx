@@ -29,6 +29,7 @@ export default function ServicesWithImages() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
+
   return (
     <section className="py-28 px-4 sm:px-6 md:px-8 bg-gray-50">
       <div className="max-w-7xl mx-auto text-center">

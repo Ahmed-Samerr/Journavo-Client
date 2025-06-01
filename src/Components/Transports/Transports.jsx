@@ -1,10 +1,9 @@
-import gobus from "../../assets/gobus.jpg"
-import bluebus from "../../assets/bluebus.jpg"
-import SuperJet from "../../assets/SuperJet.jpg"
-import WestDelta from "../../assets/WestDelta.jpg"
-import ElGouna from "../../assets/ElGouna.jpg"
-import UpperEgypt from "../../assets/UpperEgypt.jpg"
-
+import gobus from "../../assets/gobus.jpg";
+import bluebus from "../../assets/bluebus.jpg";
+import SuperJet from "../../assets/SuperJet.jpg";
+import WestDelta from "../../assets/WestDelta.jpg";
+import ElGouna from "../../assets/ElGouna.jpg";
+import UpperEgypt from "../../assets/UpperEgypt.jpg";
 
 const Transports = () => {
   const transports = [
@@ -19,7 +18,7 @@ const Transports = () => {
       id: 2,
       name: "Blue Bus",
       location: "Cairo, Alexandria, Hurghada",
-      image: bluebus ,
+      image: bluebus,
       price: "Starting from 120 EGP",
     },
     {
@@ -33,30 +32,30 @@ const Transports = () => {
       id: 4,
       name: "West Delta Bus",
       location: "North Coast, Alexandria",
-      image:WestDelta,
+      image: WestDelta,
       price: "From 90 EGP",
     },
     {
       id: 5,
       name: "El Gouna Bus",
       location: "Red Sea Cities",
-      image:ElGouna,
+      image: ElGouna,
       price: "From 150 EGP",
     },
     {
       id: 6,
       name: "Upper Egypt Transport",
       location: "Luxor, Aswan, Sohag",
-      image:UpperEgypt,
+      image: UpperEgypt,
       price: "From 130 EGP",
     },
   ];
   return (
-    <div className="min-h-screen bg-gradient-to-r from-gray-50 to-white py-12 px-4 md:px-20">
+    <div className="min-h-screen bg-gradient-to-r from-gray-50 to-white py-32 px-4 md:px-20">
       <h1 className="text-4xl font-bold text-blue-800 text-center mb-12 animate-fade-in">
         Explore Transport Services in Egypt
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">    
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {transports.map((item) => (
           <div
             key={item.id}
@@ -68,9 +67,13 @@ const Transports = () => {
               className="w-full h-52 object-cover"
             />
             <div className="p-4">
-              <h2 className="text-center text-xl font-bold text-gray-800">{item.name}</h2>
+              <h2 className="text-center text-xl font-bold text-gray-800">
+                {item.name}
+              </h2>
               <p className="text-gray-600 text-center mt-1">{item.location}</p>
-              <p className="text-gray-800 text-center font-semibold mt-2">{item.price}</p>
+              <p className="text-gray-800 text-center font-semibold mt-2">
+                {item.price}
+              </p>
               <button className="mt-4 w-full bg-blue-600 text-white text-center py-2 text-sm sm:text-base rounded-lg hover:bg-blue-700 transition-all duration-300">
                 View Schedule
               </button>

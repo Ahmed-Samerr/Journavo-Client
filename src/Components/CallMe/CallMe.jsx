@@ -62,7 +62,7 @@ export default function CallMe() {
             ></textarea>
             <button
               type="submit"
-              className="bg-gray-800 text-white px-6 py-2 rounded-md hover:bg-gray-700"
+              className=" bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition"
             >
               submit
             </button>

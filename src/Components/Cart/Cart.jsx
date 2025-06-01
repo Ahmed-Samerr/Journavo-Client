@@ -70,7 +70,7 @@ const CartPage = () => {
       <div className="overflow-x-auto mb-10">
         <table className="w-full bg-white border border-gray-200 shadow-md rounded-xl overflow-hidden text-sm md:text-base">
           <thead>
-            <tr className="bg-blue-100 text-blue-800 text-left">
+            <tr className="bg-blue-100 text-blue-800 text-center">
               <th className="p-4">Image</th>
               <th className="p-4">Title</th>
               <th className="p-4">Date</th>
@@ -78,7 +78,7 @@ const CartPage = () => {
               <th className="p-4">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="text-center">
             {cartItems.map((item) => (
               <tr
                 key={item.id}
@@ -99,7 +99,7 @@ const CartPage = () => {
                 <td className="p-4">
                   <button
                     onClick={() => handleRemove(item.id)}
-                    className="bg-red-100 hover:bg-red-200 text-red-600 px-2 py-1 rounded text-xs sm:text-sm font-medium"
+                    className="bg-red-100 hover:bg-red-200 text-red-600 px-5 py-2  rounded text-xs sm:text-sm font-medium"
                   >
                     Remove
                   </button>

@@ -8,6 +8,7 @@ import Services from "./Components/Services/Services";
 import Loading from "./Components/Loading/loading";
 import Login from "./Components/Login/Login ";
 import Notfound from "./Components/Notfound/Notfound";
+import BookingSuccess from "./Components/BookingSuccess/BookingSuccess";
 import Register from "./Components/Register/Register";
 import CounterContextProvider from "./Context/CounterContext";
 import UserContextprovider from "./Context/UserContext";
@@ -30,7 +31,6 @@ let x = createBrowserRouter([
     path: "/",
     element: <Layout />,
     children: [
-      // Open to all users, no token required
       { index: true, element: <Home /> },
       { path: "About", element: <About /> },
       { path: "Services", element: <Services /> },
@@ -44,8 +44,6 @@ let x = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-
-      // Pages that require authentication (token)
       {
         path: "Cart",
         element: (
@@ -71,7 +69,12 @@ let x = createBrowserRouter([
         ),
       },
 
-      // Admin pages require auth too
+      // هُنا مسار صفحة نجاح الحجز لازم يكون هنا قبل مسار النجمة
+      {
+        path: "booking-success",
+        element: <BookingSuccess />,
+      },
+
       {
         path: "Admin",
         element: (
@@ -104,12 +107,10 @@ let x = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-
-      // Public pages for login and register
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
 
-      // Catch-all 404
+      // هذا مسار 404
       { path: "*", element: <Notfound /> },
     ],
   },

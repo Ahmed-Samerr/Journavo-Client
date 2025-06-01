@@ -33,7 +33,7 @@ const WishlistPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-white py-28 px-4 sm:px-8 md:px-16 animate-fade-in">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-white py-28 px-4 sm:px-8 md:px-12 lg:px-24 flex flex-col items-center animate-fade-in">
       <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-800 text-center mb-8">
         Your Wishlist
       </h1>
@@ -43,68 +43,65 @@ const WishlistPage = () => {
           Your wishlist is empty.
         </p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-xl overflow-hidden text-sm sm:text-base">
+        <div className="overflow-x-auto mb-10 w-full">
+          <table className="w-full bg-white border border-gray-200 shadow-md rounded-xl overflow-hidden text-sm md:text-base text-center">
             <thead>
               <tr className="bg-blue-100 text-blue-800">
-                <th className="p-3 sm:p-4">Image</th>
-                <th className="p-3 sm:p-4">Title</th>
-                <th className="p-3 sm:p-4">Available Date</th>
-                <th className="p-3 sm:p-4">Price (EGP)</th>
-                <th className="p-3 sm:p-4">Actions</th>
+                <th className="p-4">Image</th>
+                <th className="p-4">Title</th>
+                <th className="p-4">Available Date</th>
+                <th className="p-4">Price (EGP)</th>
+                <th className="p-4">Actions</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="text-center">
               {wishlist.map((item) => (
                 <tr
                   key={item.id}
                   className="border-t border-gray-200 hover:bg-pink-50"
                 >
-                  <td className="p-3 sm:p-4">
+                  <td className="p-4">
                     <img
                       src={item.image}
                       alt={item.title}
                       className="w-16 h-12 sm:w-20 sm:h-16 object-cover rounded"
                     />
                   </td>
-                  <td className="text-center p-3 sm:p-4 font-medium text-gray-800">
+                  <td className="p-4 font-medium text-gray-800">
                     {item.title}
                   </td>
-                  <td className="text-center p-3 sm:p-4 text-gray-600">
-                    {item.date}
-                  </td>
-                  <td className="text-center p-3 sm:p-4 font-semibold text-pink-600">
+                  <td className="p-4 text-gray-600">{item.date}</td>
+                  <td className="p-4 font-semibold text-pink-600">
                     {item.price}
                   </td>
-                  <td className="p-3 sm:p-4 text-center">
-                    <div className="flex flex-col items-center space-y-2 sm:space-y-3">
+                  <td className="p-4">
+                    <div className="flex flex-col sm:flex-row gap-3 items-center justify-center">
                       <button
                         onClick={handleAddToCart}
                         className="
-                          w-4/5 sm:w-3/5 md:w-2/5
+                          w-36 sm:w-32 md:w-40
                           bg-green-100 hover:bg-green-200
-                          text-green-700
-                          px-3 py-2
+                          text-green-600
+                          px-5 py-2
                           rounded
-                          text-xs sm:text-sm md:text-base
-                          font-medium
-                          transition-all duration-200
+                          text-xs sm:text-sm font-medium
+                          transition-colors duration-200
                           focus:outline-none focus:ring-2 focus:ring-green-300
                         "
                       >
                         Add to Cart
                       </button>
+
                       <button
                         onClick={() => handleRemove(item.id)}
                         className="
-                          w-4/5 sm:w-3/5 md:w-2/5
+                          w-36 sm:w-32 md:w-40
                           bg-red-100 hover:bg-red-200
                           text-red-600
-                          px-3 py-2
+                          px-5 py-2
                           rounded
-                          text-xs sm:text-sm md:text-base
-                          font-medium
-                          transition-all duration-200
+                          text-xs sm:text-sm font-medium
+                          transition-colors duration-200
                           focus:outline-none focus:ring-2 focus:ring-red-300
                         "
                       >

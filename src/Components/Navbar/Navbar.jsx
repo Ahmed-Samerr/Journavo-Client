@@ -37,13 +37,13 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`absolute top-0 left-0 w-full z-50 bg-white transition-all duration-500 ${
+      className={`fixed top-0 left-0 w-full z-50 bg-white transition-all duration-500 ${
         scrolled ? "shadow-md" : ""
       }`}
     >
-      <div className="flex items-end justify-between mx-auto p-4">
+      <div className="flex items-end justify-between ml-auto -mr-50 p-4">
         {/* Logo + Hamburger */}
-        <div className="flex justify-between items-center w-full md:w-auto">
+        <div className="flex justify-between items-center w-full  md:w-auto ml-10">
           <img
             src={logo}
             onClick={handleScrollToHome}
@@ -76,7 +76,7 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex gap-6 text-lg font-semibold">
+        <ul className="hidden md:flex gap-5 text-lg font-semibold -mr-30">
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -95,8 +95,8 @@ export default function Navbar() {
         </ul>
 
         {/* Desktop Right Links + Icons */}
-        <div className="hidden md:flex items-center space-x-6">
-          <div className="icons flex gap-4 text-xl">
+        <div className="hidden md:flex items-center space-x-3 mr-8">
+          <div className="icons flex gap-2.5 text-lg">
             <li className="fab fa-facebook"></li>
             <li className="fab fa-linkedin"></li>
             <li className="fab fa-youtube"></li>
@@ -130,7 +130,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <ul
-        className={`flex flex-col items-center justify-center fixed top-0 left-0 bg-white z-40 gap-8 text-lg font-semibold overflow-hidden md:hidden`}
+        className={`flex flex-col items-center -mr-20 justify-center fixed top-0 left-0 bg-white z-40 gap-8 text-lg font-semibold overflow-hidden md:hidden`}
         style={{
           listStyleType: "none",
           padding: 0,
@@ -172,6 +172,28 @@ export default function Navbar() {
           </>
         )}
       </ul>
+
+      {/* Mobile Auth Links */}
+      {menuOpen && (
+        <div className="flex flex-col items-center justify-center fixed bottom-8 left-0 w-full z-40 gap-4 md:hidden text-lg font-semibold">
+          <Link
+            to="/login"
+            onClick={() => setMenuOpen(false)}
+            className="text-blue-600"
+            style={{ display: userLogin !== null ? "none" : "block" }}
+          >
+            Login
+          </Link>
+          <Link
+            to="/register"
+            onClick={() => setMenuOpen(false)}
+            className="text-blue-600"
+            style={{ display: userLogin !== null ? "none" : "block" }}
+          >
+            Register
+          </Link>
+        </div>
+      )}
     </nav>
   );
 }

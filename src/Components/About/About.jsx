@@ -1,8 +1,13 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import egypt from "../../assets/egypt.jpg";
 import { Link } from "react-router-dom";
 
 const About = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   return (
     <div className="bg-white py-16">
       {/* Hero Section */}
@@ -86,7 +91,7 @@ const About = () => {
           ))}
         </div>
 
-        {/* Vision Section - Fixed at bottom */}
+        {/* Vision Section */}
         <motion.div
           className="py-20 px-4 sm:px-6 md:px-12 lg:px-24 text-center"
           initial={{ opacity: 0, y: 30 }}
@@ -99,8 +104,8 @@ const About = () => {
             </h3>
             <p className="text-gray-600 text-md leading-relaxed">
               We envision a future where local travel is effortless and
-              enjoyable for everyone. Whether your planning a weekend getaway or
-              a full vacation, our platform is here to help you every step of
+              enjoyable for everyone. Whether you're planning a weekend getaway
+              or a full vacation, our platform is here to help you every step of
               the way.
             </p>
           </div>
