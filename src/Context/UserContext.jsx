@@ -3,10 +3,11 @@ import { createContext, useEffect, useState } from "react";
 export let UserContext = createContext();
 
 export default function UserContextprovider(props) {
-  const [userLogin, setuserLogin] = useState(null);
+  const [user, setUser] = useState();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 425);
   const [loading, setLoading] = useState(true);
   const [animate, setAnimate] = useState(true);
+  const [isLogin, setLogin] = useState(false);
 
   useEffect(() => {
     // Check for login
@@ -36,12 +37,14 @@ export default function UserContextprovider(props) {
   return (
     <UserContext.Provider
       value={{
-        userLogin,
-        setuserLogin,
+        user,
+        setUser,
         isMobile,
         setIsMobile,
         loading,
         animate,
+        isLogin,
+        setLogin,
       }}
     >
       {props.children}

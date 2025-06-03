@@ -1,38 +1,27 @@
 import { useContext, useState } from "react";
 import { useFormik } from "formik";
-import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import * as Yup from "yup";
 import { UserContext } from "../../Context/UserContext";
+import { userLogin } from "../../connection/services";
 
 export default function Login() {
-  const { setuserLogin } = useContext(UserContext);
+  const { setUser, setLogin } = useContext(UserContext);
   const navigate = useNavigate();
-  const [ApiError, setApiError] = useState("");
-  const [isLoading, setisLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleLogin(values) {
-    setisLoading(true);
-    axios
-      .post("https://ecommerce.routemisr.com/api/v1/auth/signin", values)
-      .then((res) => {
-        setisLoading(false);
-        if (res.data.message === "success") {
-          localStorage.setItem("userToken", res.data.token);
-          setuserLogin(res.data.token);
-          navigate("/");
-        }
-      })
-      .catch((res) => {
-        setisLoading(false);
-        setApiError(res.response?.data?.message || "An error occurred");
-      });
+    setIsLoading(true);
+    userLogin("/user/login", values, setUser, setIsLoading, navigate, setLogin);
   }
 
   let validationSchema = Yup.object().shape({
     email: Yup.string().email("invalid email").required("email is required"),
     password: Yup.string()
-      .matches(/^[A-Za-z0-9]{6,10}$/, "password should be between 6 to 10 chars")
+      .matches(
+        /^[A-Za-z0-9]{6,10}$/,
+        "password should be between 6 to 10 chars"
+      )
       .required("password is required"),
   });
 
@@ -47,12 +36,6 @@ export default function Login() {
 
   return (
     <>
-      {ApiError && (
-        <div className="max-w-md mx-auto bg-red-600 text-white font-bold rounded-lg p-3 my-4 text-center">
-          {ApiError}
-        </div>
-      )}
-
       <div className="py-32 px-10 sm:px-6 lg:px-8">
         <h2 className="font-bold text-2xl sm:text-3xl md:text-4xl text-emerald-600 mb-6 text-center">
           Login Now
@@ -114,11 +97,7 @@ export default function Login() {
               className="w-auto sm:w-auto text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base sm:text-lg px-10 py-1 text-center transition"
               disabled={isLoading}
             >
-              {isLoading ? (
-                <i className="fas fa-spinner fa-spin"></i>
-              ) : (
-                "Login"
-              )}
+              {isLoading ? <i className="fas fa-spinner fa-spin"></i> : "Login"}
             </button>
 
             <Link to={"/register"} className="w-full sm:w-auto text-center">

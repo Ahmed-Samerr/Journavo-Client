@@ -1,33 +1,17 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useFormik } from "formik";
-import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import * as Yup from "yup";
-import { UserContext } from "../../Context/UserContext";
+
+import { userRegistration } from "../../connection/services";
 
 export default function Register() {
-  let { userLogin, setuserLogin } = useContext(UserContext);
   const navigate = useNavigate();
-  const [ApiError, setApiError] = useState("");
-  const [isLoading, setisLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleRegister(values) {
-    setisLoading(true);
-    axios
-      .post("https://ecommerce.routemisr.com/api/v1/auth/signup", values)
-      .then((res) => {
-        setisLoading(false);
-
-        if (res.data.message === "success") {
-          localStorage.setItem("userToken", res.data.token);
-          setuserLogin(res.data.token);
-          navigate("/");
-        }
-      })
-      .catch((res) => {
-        setisLoading(false);
-        setApiError(res.response?.data?.message || "An error occurred");
-      });
+    setIsLoading(true);
+    userRegistration("/user/new", values, navigate);
   }
 
   let validationSchema = Yup.object().shape({
@@ -64,12 +48,6 @@ export default function Register() {
 
   return (
     <>
-      {ApiError && (
-        <div className="max-w-md mx-auto bg-red-600 text-white font-bold rounded-lg p-3 my-4 text-center">
-          {ApiError}
-        </div>
-      )}
-
       <div className="py-32 px-10 sm:px-6 lg:px-8">
         <h2 className="font-bold text-2xl sm:text-3xl md:text-4xl text-emerald-600 mb-6 text-center">
           Register Now

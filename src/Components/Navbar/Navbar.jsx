@@ -3,10 +3,11 @@ import logo from "../../assets/Logo.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
 import "./Navbar.css";
+import { logout } from "../../connection/services";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const { userLogin, setuserLogin } = useContext(UserContext);
+  const { isLogin, setLogin } = useContext(UserContext);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -23,9 +24,7 @@ export default function Navbar() {
   }, []);
 
   function SignOut() {
-    localStorage.removeItem("userToken");
-    setuserLogin(null);
-    navigate("/login");
+    logout("/user/logout", setLogin, navigate);
   }
 
   const handleScrollToHome = () => {
@@ -104,7 +103,7 @@ export default function Navbar() {
             <li className="fab fa-twitter"></li>
           </div>
           <div className="links flex gap-4 text-lg font-semibold">
-            {userLogin !== null ? (
+            {isLogin ? (
               <span onClick={SignOut} className="cursor-pointer">
                 SignOut
               </span>
@@ -112,13 +111,13 @@ export default function Navbar() {
               <>
                 <Link
                   to="/login"
-                  style={{ display: userLogin !== null ? "none" : "block" }}
+                  style={{ display: isLogin === true ? "none" : "block" }}
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  style={{ display: userLogin !== null ? "none" : "block" }}
+                  style={{ display: isLogin === true ? "none" : "block" }}
                 >
                   Register
                 </Link>

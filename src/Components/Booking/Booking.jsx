@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Booking = () => {
@@ -16,42 +16,48 @@ const Booking = () => {
     requests: "",
   });
 
-  const destinations = [
-    "Cairo",
-    "Alexandria",
-    "Luxor",
-    "Aswan",
-    "Sharm El-Sheikh",
-  ];
+  const [errors, setErrors] = useState({}); // لتخزين الأخطاء
+
+  const destinations = ["Cairo", "Alexandria", "Luxor", "Aswan", "Sharm El-Sheikh"];
   const travelClasses = ["Economy", "Business", "VIP"];
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+
+    // بمجرد ما يكتب صح، نمسح رسالة الخطأ للـ input ده
+    setErrors({ ...errors, [name]: "" });
   };
 
-  // دالة بسيطة للتحقق من صحة البيانات المطلوبة
-  const isValid = () => {
-    return (
-      formData.name.trim() !== "" &&
-      formData.email.includes("@") &&
-      formData.phone.trim() !== "" &&
-      formData.destination !== "" &&
-      formData.checkIn !== "" &&
-      formData.checkOut !== "" &&
-      new Date(formData.checkIn) <= new Date(formData.checkOut) &&
-      formData.guests > 0
-    );
+  const validate = () => {
+    const newErrors = {};
+
+    if (!formData.name.trim()) newErrors.name = "Name is required.";
+    if (!formData.email.includes("@")) newErrors.email = "Enter a valid email.";
+    if (!formData.phone.trim()) newErrors.phone = "Phone is required.";
+    if (!formData.destination) newErrors.destination = "Select a destination.";
+    if (!formData.checkIn) newErrors.checkIn = "Check-in date is required.";
+    if (!formData.checkOut) newErrors.checkOut = "Check-out date is required.";
+    if (new Date(formData.checkIn) > new Date(formData.checkOut)) {
+      newErrors.checkOut = "Check-out must be after check-in.";
+    }
+    if (formData.guests < 1) newErrors.guests = "At least 1 guest is required.";
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (isValid()) {
-      // لو البيانات صح ننتقل لصفحة نجاح الحجز
+    if (validate()) {
       navigate("/booking-success");
     } else {
-      alert("يرجى ملء جميع الحقول المطلوبة بشكل صحيح.");
+      alert("Please fix the errors in the form.");
     }
   };
 
@@ -74,9 +80,11 @@ const Booking = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-blue-500"
-              required
+              className={`w-full border ${
+                errors.name ? "border-red-500" : "border-gray-300"
+              } rounded px-4 py-2 focus:ring-2 focus:ring-blue-500`}
             />
+            {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
           </div>
           <div>
             <label className="block text-gray-700 mb-2">Email</label>
@@ -85,9 +93,11 @@ const Booking = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-blue-500"
-              required
+              className={`w-full border ${
+                errors.email ? "border-red-500" : "border-gray-300"
+              } rounded px-4 py-2 focus:ring-2 focus:ring-blue-500`}
             />
+            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
           </div>
         </div>
 
@@ -100,9 +110,11 @@ const Booking = () => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-blue-500"
-              required
+              className={`w-full border ${
+                errors.phone ? "border-red-500" : "border-gray-300"
+              } rounded px-4 py-2 focus:ring-2 focus:ring-blue-500`}
             />
+            {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
           </div>
           <div>
             <label className="block text-gray-700 mb-2">Destination</label>
@@ -110,8 +122,9 @@ const Booking = () => {
               name="destination"
               value={formData.destination}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-blue-500"
-              required
+              className={`w-full border ${
+                errors.destination ? "border-red-500" : "border-gray-300"
+              } rounded px-4 py-2 focus:ring-2 focus:ring-blue-500`}
             >
               <option value="">Select a destination</option>
               {destinations.map((dest, index) => (
@@ -120,6 +133,7 @@ const Booking = () => {
                 </option>
               ))}
             </select>
+            {errors.destination && <p className="text-red-500 text-sm">{errors.destination}</p>}
           </div>
         </div>
 
@@ -132,9 +146,11 @@ const Booking = () => {
               name="checkIn"
               value={formData.checkIn}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-blue-500"
-              required
+              className={`w-full border ${
+                errors.checkIn ? "border-red-500" : "border-gray-300"
+              } rounded px-4 py-2 focus:ring-2 focus:ring-blue-500`}
             />
+            {errors.checkIn && <p className="text-red-500 text-sm">{errors.checkIn}</p>}
           </div>
           <div>
             <label className="block text-gray-700 mb-2">Check-out Date</label>
@@ -143,9 +159,11 @@ const Booking = () => {
               name="checkOut"
               value={formData.checkOut}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-blue-500"
-              required
+              className={`w-full border ${
+                errors.checkOut ? "border-red-500" : "border-gray-300"
+              } rounded px-4 py-2 focus:ring-2 focus:ring-blue-500`}
             />
+            {errors.checkOut && <p className="text-red-500 text-sm">{errors.checkOut}</p>}
           </div>
         </div>
 
@@ -159,9 +177,11 @@ const Booking = () => {
               min="1"
               value={formData.guests}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-blue-500"
-              required
+              className={`w-full border ${
+                errors.guests ? "border-red-500" : "border-gray-300"
+              } rounded px-4 py-2 focus:ring-2 focus:ring-blue-500`}
             />
+            {errors.guests && <p className="text-red-500 text-sm">{errors.guests}</p>}
           </div>
           <div>
             <label className="block text-gray-700 mb-2">Travel Class</label>
