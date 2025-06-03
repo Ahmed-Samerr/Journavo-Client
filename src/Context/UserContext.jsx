@@ -10,11 +10,6 @@ export default function UserContextprovider(props) {
   const [isLogin, setLogin] = useState(false);
 
   useEffect(() => {
-    // Check for login
-    if (localStorage.getItem("userToken")) {
-      setuserLogin(localStorage.getItem("userToken"));
-    }
-
     // Handle screen resize
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 425);
