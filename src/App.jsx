@@ -37,6 +37,10 @@ let x = createBrowserRouter([
       { path: "Trips", element: <Trips /> },
       { path: "Hotels", element: <Hotels /> },
       {
+        path: "Transports",
+        element: <Transports />,
+      },
+      {
         path: "Wishlist",
         element: (
           <ProtectedRoute>
@@ -52,14 +56,7 @@ let x = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      {
-        path: "Transports",
-        element: (
-          <ProtectedRoute>
-            <Transports />
-          </ProtectedRoute>
-        ),
-      },
+
       {
         path: "Booking",
         element: (
