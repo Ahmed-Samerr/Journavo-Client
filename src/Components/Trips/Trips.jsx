@@ -56,11 +56,8 @@ const Trips = () => {
                     </div>
 
                     {/* زر Book Now */}
+                   
                     <Link
-                      to="/booking"
-                      className="mt-4 w-full bg-blue-600 text-white text-center py-2 text-sm sm:text-base rounded-lg hover:bg-blue-700 transition-all duration-300"
-=======
-                    <button
                       onClick={() => {
                         handleBooking(trip);
                         navigate("/booking");
