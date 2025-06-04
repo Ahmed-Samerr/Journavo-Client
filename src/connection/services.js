@@ -23,7 +23,7 @@ export async function checkCredentials(
   navigate,
   setLogin
 ) {
-  await http.client.get(URL, values).then((res) => {
+  await http.client.post(URL, values).then((res) => {
     if (res.data.data === "user") {
       login("/user/login", values, setUser, setIsLoading, navigate, setLogin);
       navigate("/");
