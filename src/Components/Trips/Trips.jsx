@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { addToWishList, getImages } from "../../connection/services";
 import { UserContext } from "../../Context/UserContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Trips = () => {
   const navigate = useNavigate();
@@ -61,7 +61,7 @@ const Trips = () => {
 
                     {/* زر Book Now */}
 
-                    <Link
+                    <button
                       onClick={() => {
                         handleBooking(trip);
                         navigate("/booking");
@@ -69,7 +69,7 @@ const Trips = () => {
                       className=" mt-4 w-full bg-blue-600 text-white text-center py-2 text-sm sm:text-base rounded-lg hover:bg-blue-700 transition-all duration-300"
                     >
                       Book Now
-                    </Link>
+                    </button>
                   </div>
                 </div>
               ))

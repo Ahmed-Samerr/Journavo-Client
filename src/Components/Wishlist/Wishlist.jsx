@@ -1,13 +1,13 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
 import { removeItemFromWishlist } from "../../connection/services";
+import { useNavigate } from "react-router-dom";
 
 const WishlistPage = () => {
   const { user, setLoading, setUser, setAnimate, isLogin, setDetails } =
     useContext(UserContext);
-
-  const navigate = useNavigate();
+ 
+    const navigate = useNavigate
 
   const handleRemove = (id) => {
     setLoading(true);
@@ -19,11 +19,12 @@ const WishlistPage = () => {
       setAnimate
     );
   };
-  const handleAddToCar = async (item, navigate) => {
+
+  const handleAddToCart = async (item , navigate) => {
     localStorage.setItem("details", JSON.stringify(item));
     await setDetails(item);
-    navigate("/booking");
-  };
+    navigate ("/booking")
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-white py-28 px-4 sm:px-8 md:px-12 lg:px-24 flex flex-col items-center animate-fade-in">
@@ -71,7 +72,7 @@ const WishlistPage = () => {
                     <td className="p-4">
                       <div className="flex flex-col sm:flex-row gap-3 items-center justify-center">
                         <button
-                          onClick={() => handleAddToCar(item, navigate)}
+                          onClick={() => handleAddToCart(item, navigate)}
                           className="
                           w-36 sm:w-32 md:w-40
                           bg-green-100 hover:bg-green-200
@@ -115,5 +116,4 @@ const WishlistPage = () => {
     </div>
   );
 };
-
 export default WishlistPage;

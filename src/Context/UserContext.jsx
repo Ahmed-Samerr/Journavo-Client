@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { addToWishList } from "../connection/services";
 
 export const UserContext = createContext();
 
@@ -25,6 +26,12 @@ const UserContextProvider = ({ children }) => {
     }
   };
 
+  const handleWishList = (wishId) => {
+    setLoading(true);
+    setAnimate(true);
+    addToWishList(`/user/wishList/${wishId}`, setUser, setLoading, setAnimate);
+  };
+
   // Auto-disable loading and animation after timeout
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -42,7 +49,6 @@ const UserContextProvider = ({ children }) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []); // added [] to avoid running on every render
-
   return (
     <UserContext.Provider
       value={{
@@ -59,6 +65,7 @@ const UserContextProvider = ({ children }) => {
         handleBooking,
         setLoading,
         setAnimate,
+        handleWishList,
       }}
     >
       {children}

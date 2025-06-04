@@ -5,9 +5,11 @@ import { UserContext } from "../../Context/UserContext";
 
 const Hotels = () => {
   const navigate = useNavigate();
+
   const { handleBooking, setUser, setLoading, setAnimate } =
     useContext(UserContext);
   //Data holder from the backend
+
   const [category, setCategory] = useState([]);
 
   const handleWishList = (id) => {
@@ -60,6 +62,7 @@ const Hotels = () => {
                     </div>
 
                     {/* زر Book Now */}
+
                     <button
                       onClick={() => {
                         handleBooking(hotel);

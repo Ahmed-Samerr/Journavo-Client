@@ -5,8 +5,10 @@ import { UserContext } from "../../Context/UserContext";
 
 const Transports = () => {
   const navigate = useNavigate();
+
   const { handleBooking, setUser, setLoading, setAnimate } =
     useContext(UserContext);
+
   //Data holder from the backend
   const [category, setCategory] = useState([]);
 
@@ -40,9 +42,11 @@ const Transports = () => {
                   />
 
                   {/* زر القلب على شكل دائرة */}
+
                   <button
                     onClick={() => {
                       handleWishList(Transportation._id);
+                      navigate("/wishlist");
                     }}
                     className="absolute right-4 top-4 bg-gray-200 text-gray-600 rounded-full w-10 h-10 flex items-center justify-center hover:bg-red-100 hover:text-red-600 transition duration-300 shadow"
                     title="Add to Wishlist"
