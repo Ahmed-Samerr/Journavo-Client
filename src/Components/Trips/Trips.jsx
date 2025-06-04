@@ -1,15 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { getImages } from "../../connection/services";
 import { UserContext } from "../../Context/UserContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Trips = () => {
-<<<<<<< HEAD
-=======
   const navigate = useNavigate();
   const { handleBooking } = useContext(UserContext);
   //Data holder from the backend
->>>>>>> 2f4ea395664e364587917b5067ad52cf2be802fb
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
@@ -57,23 +54,18 @@ const Trips = () => {
                         {trip.price} EGP / person
                       </p>
                     </div>
-<<<<<<< HEAD
 
                     {/* زر Book Now */}
+
                     <Link
-                      to="/booking"
-                      className="mt-4 w-full bg-blue-600 text-white text-center py-2 text-sm sm:text-base rounded-lg hover:bg-blue-700 transition-all duration-300"
-=======
-                    <button
                       onClick={() => {
                         handleBooking(trip);
                         navigate("/booking");
                       }}
                       className=" mt-4 w-full bg-blue-600 text-white text-center py-2 text-sm sm:text-base rounded-lg hover:bg-blue-700 transition-all duration-300"
->>>>>>> 2f4ea395664e364587917b5067ad52cf2be802fb
                     >
                       Book Now
-                    </button>
+                    </Link>
                   </div>
                 </div>
               ))
