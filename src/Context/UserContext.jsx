@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { addToWishList } from "../connection/services";
 
 export const UserContext = createContext();
 
@@ -24,10 +23,6 @@ const UserContextProvider = ({ children }) => {
     } else {
       setLogin(false);
     }
-  };
-
-  const handleWishList = (id) => {
-    addToWishList(`/user/wishList/${id}`, setUser, setLoading, setAnimate);
   };
 
   // Auto-disable loading and animation after timeout
@@ -64,7 +59,6 @@ const UserContextProvider = ({ children }) => {
         handleBooking,
         setLoading,
         setAnimate,
-        handleWishList,
       }}
     >
       {children}

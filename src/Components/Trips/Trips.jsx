@@ -1,14 +1,18 @@
 import { useContext, useEffect, useState } from "react";
-import { getImages } from "../../connection/services";
+import { addToWishList, getImages } from "../../connection/services";
 import { UserContext } from "../../Context/UserContext";
 import { Link, useNavigate } from "react-router-dom";
 
 const Trips = () => {
   const navigate = useNavigate();
-  const { handleBooking, handleWishList } = useContext(UserContext);
+  const { handleBooking, setUser, setLoading, setAnimate } =
+    useContext(UserContext);
   //Data holder from the backend
   const [category, setCategory] = useState([]);
 
+  const handleWishList = (id) => {
+    addToWishList(`/user/wishList/${id}`, setUser, setLoading, setAnimate);
+  };
   useEffect(() => {
     getImages("/data/all", setCategory);
     window.scrollTo({ top: 0, behavior: "smooth" });
