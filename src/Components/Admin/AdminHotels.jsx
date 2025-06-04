@@ -28,7 +28,7 @@ const AdminHotels = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-white py-12 px-4 md:px-16 animate-fade-in">
+    <div className=" min-h-screen bg-gradient-to-br from-gray-100 to-white py-32 px-4 md:px-16 animate-fade-in">
       <h1 className="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-10">
         Manage Hotels
       </h1>

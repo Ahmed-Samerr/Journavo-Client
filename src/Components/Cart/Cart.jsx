@@ -12,14 +12,14 @@ const CartPage = () => {
     setLoading(true);
     setAnimate(true);
     removeItemFromCart(
-      `/removeItemFromCart/${id}`,
+      `/user/removeItemFromCart/${id}`,
       setUser,
       setLoading,
       setAnimate
     );
   };
 
-  const total = 0;
+  const total = user.totalPrice;
 
   // دالة التوجيه للصفحة
   const handleConfirmBooking = () => {
@@ -31,7 +31,6 @@ const CartPage = () => {
       <h1 className="text-3xl md:text-4xl font-bold text-blue-800 text-center mb-8">
         Your Booking Cart
       </h1>
-
       <div className="overflow-x-auto mb-10">
         <table className="w-full bg-white border border-gray-200 shadow-md rounded-xl overflow-hidden text-sm md:text-base">
           <thead>
@@ -44,37 +43,37 @@ const CartPage = () => {
             </tr>
           </thead>
           <tbody className="text-center">
-            {isLogin
-              ? user.cart.map((item) => (
-                  <tr
-                    key={item.id}
-                    className="border-t border-gray-200 hover:bg-blue-50"
-                  >
-                    <td className="p-4">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-16 h-12 sm:w-20 sm:h-16 object-cover rounded"
-                      />
-                    </td>
-                    <td className="p-4 font-medium text-gray-800">
-                      {item.title}
-                    </td>
-                    <td className="p-4 text-gray-600">{item.date}</td>
-                    <td className="p-4 font-semibold text-blue-700">
-                      {item.price}
-                    </td>
-                    <td className="p-4">
-                      <button
-                        onClick={() => handleRemove(item._id)}
-                        className="bg-red-100 hover:bg-red-200 text-red-600 px-5 py-2  rounded text-xs sm:text-sm font-medium"
-                      >
-                        Remove
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              : ""}
+            {isLogin &&
+              user.cart.map((item, id) => (
+                <tr
+                  key={id}
+                  id={id}
+                  className="border-t border-gray-200 hover:bg-blue-50"
+                >
+                  <td className="p-4">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-16 h-12 sm:w-20 sm:h-16 object-cover rounded"
+                    />
+                  </td>
+                  <td className="p-4 font-medium text-gray-800">
+                    {item.title}
+                  </td>
+                  <td className="p-4 text-gray-600">{item.date}</td>
+                  <td className="p-4 font-semibold text-blue-700">
+                    {item.price}
+                  </td>
+                  <td className="p-4">
+                    <button
+                      onClick={() => handleRemove(item._id)}
+                      className="bg-red-100 hover:bg-red-200 text-red-600 px-5 py-2  rounded text-xs sm:text-sm font-medium"
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

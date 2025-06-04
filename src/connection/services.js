@@ -15,7 +15,7 @@ export async function userRegistration(URL, form, navigate) {
     .catch((e) => console.log(e.message));
 }
 //Endpoint For User Login
-export async function userLogin(
+export async function login(
   URL,
   clientData,
   setUser,
@@ -26,11 +26,15 @@ export async function userLogin(
   await http.client
     .post(URL, clientData)
     .then((res) => {
+      if (res.data.data.role === "user") {
+        navigate("/");
+      } else {
+        navigate("/admin");
+      }
       localStorage.setItem("user", JSON.stringify(res.data.data));
       localStorage.setItem("token", res.data.token);
       setUser(res.data.data);
       setLogin(true);
-      navigate("/");
     })
     .catch(() => {
       setIsLoading(false);
@@ -84,7 +88,14 @@ export async function removeItemFromWishlist(
     });
 }
 //Endpoint For Add Item To The User Cart
-export async function booking(URL, data, setUser, setLoading, setAnimate) {
+export async function booking(
+  URL,
+  data,
+  setUser,
+  setLoading,
+  setAnimate,
+  navigate
+) {
   await http.client
     .post(URL, data, {
       headers: { Authorization: localStorage.getItem("token") },
@@ -92,6 +103,7 @@ export async function booking(URL, data, setUser, setLoading, setAnimate) {
     .then((res) => {
       localStorage.setItem("user", JSON.stringify(res.data.data));
       setUser(res.data.data);
+      navigate("/cart");
       setLoading(false);
       setAnimate(false);
     });
@@ -103,6 +115,7 @@ export async function removeItemFromCart(URL, setUser, setLoading, setAnimate) {
       headers: { Authorization: localStorage.getItem("token") },
     })
     .then((res) => {
+      localStorage.setItem("user", JSON.stringify(res.data.data));
       setUser(res.data.data);
       setLoading(false);
       setAnimate(false);

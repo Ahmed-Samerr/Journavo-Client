@@ -40,7 +40,7 @@ const AdminTrips = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white py-8 px-4 md:px-16">
+    <div className="mt-20 min-h-screen bg-gradient-to-br from-gray-50 to-white py-11 px-4 md:px-16">
       <h1 className="text-4xl font-bold text-center text-gray-800 mb-10">
         Manage Trips
       </h1>

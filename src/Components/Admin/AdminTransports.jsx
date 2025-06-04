@@ -32,7 +32,7 @@ const AdminTransports = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white py-12 px-4 sm:px-6 lg:px-12">
+    <div className="mt-20 min-h-screen bg-gradient-to-br from-gray-50 to-white py-11 px-4 sm:px-6 lg:px-12">
       <h1 className="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-10">
         Manage Transport Companies
       </h1>
