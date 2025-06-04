@@ -21,7 +21,7 @@ const WishlistPage = () => {
   };
 
   const handleAddToCart = () => {
-    navigate();
+    navigate("/booking");
   };
 
   return (
