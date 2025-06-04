@@ -13,7 +13,7 @@ const WishlistPage = () => {
     setLoading(true);
     setAnimate(true);
     removeItemFromWishlist(
-      `/removeItemFromwishlist/${id}`,
+      `/user/removeItemFromwishlist/${id}`,
       setUser,
       setLoading,
       setAnimate
