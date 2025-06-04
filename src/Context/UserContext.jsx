@@ -9,7 +9,7 @@ const UserContextProvider = ({ children }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 425);
   const [loading, setLoading] = useState(true);
   const [animate, setAnimate] = useState(true);
-  const [isLogin, setLogin] = useState(false);
+  const [isLogin, setLogin] = useState();
 
   const handleBooking = (dataDetails) => {
     localStorage.setItem("details", JSON.stringify(dataDetails));
@@ -21,7 +21,12 @@ const UserContextProvider = ({ children }) => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 425);
     };
-
+    if (localStorage.getItem("user")) {
+      setUser(JSON.parse(localStorage.getItem("user")));
+      setLogin(true);
+    } else {
+      setLogin(false);
+    }
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -50,6 +55,8 @@ const UserContextProvider = ({ children }) => {
         details,
         setDetails,
         handleBooking,
+        setLoading,
+        setAnimate,
       }}
     >
       {children}

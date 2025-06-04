@@ -7,7 +7,7 @@ import { logout } from "../../connection/services";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const { isLogin, setLogin } = useContext(UserContext);
+  const { isLogin, setLogin, setLoading, setAnimate } = useContext(UserContext);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -24,7 +24,9 @@ export default function Navbar() {
   }, []);
 
   function SignOut() {
-    logout("/user/logout", setLogin, navigate);
+    setLoading(true);
+    setAnimate(true);
+    logout("/user/logout", setLogin, navigate, setLoading, setAnimate);
   }
 
   const handleScrollToHome = () => {
@@ -157,7 +159,7 @@ export default function Navbar() {
               <Link to="/Services">Services</Link>
             </li>
 
-            {userLogin !== null && (
+            {isLogin !== null && (
               <li
                 onClick={() => {
                   SignOut();

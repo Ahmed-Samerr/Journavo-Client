@@ -31,7 +31,7 @@ const WishlistPage = () => {
       </h1>
 
       {isLogin ? (
-        user.wishlist.length === 0 ? (
+        user.wishlist.length <= 0 ? (
           <p className="text-center text-gray-500 text-lg">
             Your wishlist is empty.
           </p>

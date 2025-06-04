@@ -26,6 +26,7 @@ export async function userLogin(
   await http.client
     .post(URL, clientData)
     .then((res) => {
+      localStorage.setItem("user", JSON.stringify(res.data.data));
       localStorage.setItem("token", res.data.token);
       setUser(res.data.data);
       setLogin(true);
@@ -36,7 +37,7 @@ export async function userLogin(
     });
 }
 //Endpoint For User Logout
-export async function logout(URL, setLogin, navigate) {
+export async function logout(URL, setLogin, navigate, setLoading, setAnimate) {
   await http.client
     .post(URL, "", {
       headers: {
@@ -47,6 +48,8 @@ export async function logout(URL, setLogin, navigate) {
       localStorage.clear();
       navigate("/login");
       setLogin(false);
+      setLoading(false);
+      setAnimate(false);
     })
     .catch((e) => console.log(e));
 }
