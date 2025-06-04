@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { getImages } from "../../connection/services";
 import { UserContext } from "../../Context/UserContext";
