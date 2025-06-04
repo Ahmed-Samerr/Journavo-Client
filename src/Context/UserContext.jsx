@@ -16,6 +16,15 @@ const UserContextProvider = ({ children }) => {
     setDetails(dataDetails);
   };
 
+  const checkUser = async () => {
+    if (localStorage.getItem("user")) {
+      await setUser(JSON.parse(localStorage.getItem("user")));
+      setLogin(true);
+    } else {
+      setLogin(false);
+    }
+  };
+
   // Auto-disable loading and animation after timeout
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -25,12 +34,7 @@ const UserContextProvider = ({ children }) => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 425);
     };
-    if (localStorage.getItem("user")) {
-      setUser(JSON.parse(localStorage.getItem("user")));
-      setLogin(true);
-    } else {
-      setLogin(false);
-    }
+    checkUser();
     window.addEventListener("resize", handleResize);
 
     return () => {
