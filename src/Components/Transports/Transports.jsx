@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { getImages } from "../../connection/services";
 
 const Transports = () => {
-  //Data holder from the backend
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
@@ -23,13 +22,23 @@ const Transports = () => {
               .map((Transportation, i) => (
                 <div
                   key={i}
-                  className="bg-white rounded-xl shadow-lg overflow-hidden transform transition-transform hover:scale-105 duration-300 animate-fade-in"
+                  className="bg-white rounded-xl shadow-lg overflow-hidden transform transition-transform hover:scale-105 duration-300 animate-fade-in relative"
                 >
                   <img
                     src={Transportation.image}
                     alt={Transportation.image}
                     className="w-full h-52 object-cover"
                   />
+
+                  {/* زر القلب على شكل دائرة */}
+                  <Link
+                    to="/wishlist"
+                    className="absolute right-4 top-4 bg-gray-200 text-gray-600 rounded-full w-10 h-10 flex items-center justify-center hover:bg-red-100 hover:text-red-600 transition duration-300 shadow"
+                    title="Add to Wishlist"
+                  >
+                    ♥
+                  </Link>
+
                   <div className="p-4">
                     <h2 className="text-center text-xl font-bold text-gray-800">
                       {Transportation.title}
@@ -40,6 +49,7 @@ const Transports = () => {
                     <p className="text-gray-800 text-center font-semibold mt-2">
                       {Transportation.price}
                     </p>
+
                     <div className="mt-10 w-full bg-blue-600 text-white text-center py-2 text-sm sm:text-base rounded-lg hover:bg-blue-700 transition-all duration-300">
                       <Link to="/booking">View Schedule</Link>
                     </div>
