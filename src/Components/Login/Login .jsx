@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { useNavigate, Link } from "react-router-dom";
 import * as Yup from "yup";
 import { UserContext } from "../../Context/UserContext";
-import { login } from "../../connection/services";
+import { checkCredentials } from "../../connection/services";
 
 export default function Login() {
   const { setUser, setLogin } = useContext(UserContext);
@@ -12,7 +12,14 @@ export default function Login() {
 
   function handleLogin(values) {
     setIsLoading(true);
-    login("/user/login", values, setUser, setIsLoading, navigate, setLogin);
+    checkCredentials(
+      `/user/clientType`,
+      values,
+      setUser,
+      setIsLoading,
+      navigate,
+      setLogin
+    );
   }
 
   let validationSchema = Yup.object().shape({

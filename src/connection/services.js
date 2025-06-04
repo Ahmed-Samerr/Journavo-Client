@@ -14,6 +14,25 @@ export async function userRegistration(URL, form, navigate) {
     .then(() => navigate("/login"))
     .catch((e) => console.log(e.message));
 }
+//Check Credentials
+export async function checkCredentials(
+  URL,
+  values,
+  setUser,
+  setIsLoading,
+  navigate,
+  setLogin
+) {
+  await http.client.get(URL, values).then((res) => {
+    if (res.data.data === "user") {
+      login("/user/login", values, setUser, setIsLoading, navigate, setLogin);
+      navigate("/");
+    } else {
+      login("/admin/login", values, setUser, setIsLoading, navigate, setLogin);
+      navigate("/admin");
+    }
+  });
+}
 //Endpoint For User Login
 export async function login(
   URL,
@@ -26,11 +45,6 @@ export async function login(
   await http.client
     .post(URL, clientData)
     .then((res) => {
-      if (res.data.data.role === "user") {
-        navigate("/");
-      } else {
-        navigate("/admin");
-      }
       localStorage.setItem("user", JSON.stringify(res.data.data));
       localStorage.setItem("token", res.data.token);
       setUser(res.data.data);

@@ -44,7 +44,7 @@ export default function Navbar() {
     >
       <div className="flex items-end justify-between ml-auto -mr-50 p-4">
         {/* Logo + Hamburger */}
-        <div className="flex justify-between items-center w-full  md:w-auto ml-10">
+        <div className="flex justify-between items-center w-full  md:w-auto">
           <img
             src={logo}
             onClick={handleScrollToHome}
