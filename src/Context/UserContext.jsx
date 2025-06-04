@@ -1,33 +1,34 @@
 import { createContext, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
-export let UserContext = createContext();
+export const UserContext = createContext();
 
-export default function UserContextprovider(props) {
-  const [user, setUser] = useState();
+const UserContextProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 425);
   const [loading, setLoading] = useState(true);
   const [animate, setAnimate] = useState(true);
   const [isLogin, setLogin] = useState(false);
 
+  // Handle window resize for mobile detection
   useEffect(() => {
-    // Handle screen resize
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 425);
     };
 
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Auto-disable loading and animation after timeout
   useEffect(() => {
-    const toggleLoading = setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setLoading(false);
       setAnimate(false);
-    }, 3000); // 10 seconds
+    }, 3000);
 
-    return () => clearTimeout(toggleLoading);
-  });
+    return () => clearTimeout(timeoutId);
+  }, []); // added [] to avoid running on every render
 
   return (
     <UserContext.Provider
@@ -42,7 +43,13 @@ export default function UserContextprovider(props) {
         setLogin,
       }}
     >
-      {props.children}
+      {children}
     </UserContext.Provider>
   );
-}
+};
+
+UserContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default UserContextProvider;
