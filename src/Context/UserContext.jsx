@@ -1,38 +1,45 @@
 import { createContext, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
-export let UserContext = createContext();
+export const UserContext = createContext();
 
-export default function UserContextprovider(props) {
-  const [user, setUser] = useState();
+const UserContextProvider = ({ children }) => {
+  const [user, setUser] = useState({});
+  const [details, setDetails] = useState({});
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 425);
   const [loading, setLoading] = useState(true);
   const [animate, setAnimate] = useState(true);
-  const [isLogin, setLogin] = useState(false);
+  const [isLogin, setLogin] = useState();
 
+  const handleBooking = (dataDetails) => {
+    localStorage.setItem("details", JSON.stringify(dataDetails));
+    setDetails(dataDetails);
+  };
+
+  // Handle window resize for mobile detection
   useEffect(() => {
-    // Check for login
-    if (localStorage.getItem("userToken")) {
-      setuserLogin(localStorage.getItem("userToken"));
-    }
-
-    // Handle screen resize
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 425);
     };
-
+    if (localStorage.getItem("user")) {
+      setUser(JSON.parse(localStorage.getItem("user")));
+      setLogin(true);
+    } else {
+      setLogin(false);
+    }
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Auto-disable loading and animation after timeout
   useEffect(() => {
-    const toggleLoading = setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setLoading(false);
       setAnimate(false);
-    }, 3000); // 10 seconds
+    }, 3000);
 
-    return () => clearTimeout(toggleLoading);
-  });
+    return () => clearTimeout(timeoutId);
+  }, []); // added [] to avoid running on every render
 
   return (
     <UserContext.Provider
@@ -45,9 +52,20 @@ export default function UserContextprovider(props) {
         animate,
         isLogin,
         setLogin,
+        details,
+        setDetails,
+        handleBooking,
+        setLoading,
+        setAnimate,
       }}
     >
-      {props.children}
+      {children}
     </UserContext.Provider>
   );
-}
+};
+
+UserContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default UserContextProvider;

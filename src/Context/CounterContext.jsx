@@ -1,18 +1,22 @@
-import { createContext } from "react";
-import { useState } from "react";
+import { createContext, useState } from "react";
+import PropTypes from "prop-types";
 
-export let CounterContext = createContext();
+export const CounterContext = createContext();
 
-export default function CounterContextProvider(props) {
-  const [counter, setcounter] = useState(0);
+const CounterContextProvider = ({ children }) => {
+  const [counter, setCounter] = useState(0);
 
-  function changeCounter() {
-    setcounter(Math.random());
-  }
+  const changeCounter = () => setCounter(Math.random());
 
   return (
     <CounterContext.Provider value={{ counter, changeCounter }}>
-      {props.children}
+      {children}
     </CounterContext.Provider>
   );
-}
+};
+
+CounterContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default CounterContextProvider;

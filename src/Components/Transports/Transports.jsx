@@ -1,8 +1,15 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getImages } from "../../connection/services";
+import { UserContext } from "../../Context/UserContext";
 
 const Transports = () => {
+<<<<<<< HEAD
+=======
+  const navigate = useNavigate();
+  const { handleBooking } = useContext(UserContext);
+  //Data holder from the backend
+>>>>>>> 2f4ea395664e364587917b5067ad52cf2be802fb
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
@@ -51,7 +58,14 @@ const Transports = () => {
                     </p>
 
                     <div className="mt-10 w-full bg-blue-600 text-white text-center py-2 text-sm sm:text-base rounded-lg hover:bg-blue-700 transition-all duration-300">
-                      <Link to="/booking">View Schedule</Link>
+                      <button
+                        onClick={() => {
+                          handleBooking(Transportation);
+                          navigate("/booking");
+                        }}
+                      >
+                        View Schedule
+                      </button>
                     </div>
                   </div>
                 </div>

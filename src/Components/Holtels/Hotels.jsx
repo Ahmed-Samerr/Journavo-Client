@@ -1,8 +1,15 @@
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import { getImages } from "../../connection/services";
+import { UserContext } from "../../Context/UserContext";
 
 const Hotels = () => {
+<<<<<<< HEAD
+=======
+  const navigate = useNavigate();
+  const { handleBooking } = useContext(UserContext);
+  //Data holder from the backend
+>>>>>>> 2f4ea395664e364587917b5067ad52cf2be802fb
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
@@ -50,14 +57,22 @@ const Hotels = () => {
                         {hotel.price} EGP / Night
                       </p>
                     </div>
+<<<<<<< HEAD
 
                     {/* زر Book Now */}
                     <Link
                       to="/booking"
+=======
+                    <button
+                      onClick={() => {
+                        handleBooking(hotel);
+                        navigate("/booking");
+                      }}
+>>>>>>> 2f4ea395664e364587917b5067ad52cf2be802fb
                       className="mt-4 w-full bg-blue-600 text-white text-center py-2 text-sm sm:text-base rounded-lg hover:bg-blue-700 transition-all duration-300"
                     >
                       Book Now
-                    </Link>
+                    </button>
                   </div>
                 </div>
               ))

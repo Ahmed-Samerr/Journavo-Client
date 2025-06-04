@@ -17,7 +17,7 @@ export default function Register() {
   let validationSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, "min length is 3")
-      .max(10, "max length is 10")
+      .max(30, "max length is 30")
       .required("name is required"),
     email: Yup.string().email("invalid email").required("email is required"),
     phone: Yup.string()
