@@ -1,18 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addToWishList, getImages } from "../../connection/services";
+import { getImages } from "../../connection/services";
 import { UserContext } from "../../Context/UserContext";
 
 const Transports = () => {
   const navigate = useNavigate();
-  const { handleBooking, setUser, setLoading, setAnimate } =
-    useContext(UserContext);
+  const { handleBooking, handleWishList } = useContext(UserContext);
   //Data holder from the backend
   const [category, setCategory] = useState([]);
-
-  const handleWishList = (id) => {
-    addToWishList(`/user/wishList/${id}`, setUser, setLoading, setAnimate);
-  };
 
   useEffect(() => {
     getImages("/data/all", setCategory);

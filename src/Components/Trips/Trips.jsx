@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Trips = () => {
   const navigate = useNavigate();
-  const { handleBooking } = useContext(UserContext);
+  const { handleBooking, handleWishList } = useContext(UserContext);
   //Data holder from the backend
   const [category, setCategory] = useState([]);
 
@@ -35,13 +35,13 @@ const Trips = () => {
                     className="w-full h-48 sm:h-56 md:h-64 object-cover"
                   />
                   {/* زر القلب على شكل دايرة */}
-                  <Link
-                    to="/wishlist"
+                  <button
+                    onClick={() => handleWishList(trip._id)}
                     className="absolute right-4 top-4 bg-gray-200 text-gray-600 rounded-full w-10 h-10 flex items-center justify-center hover:bg-red-100 hover:text-red-600 transition duration-300 shadow"
                     title="Add to Wishlist"
                   >
                     ♥
-                  </Link>
+                  </button>
                   <div className="p-4 sm:p-6 flex flex-col justify-between h-48 sm:h-52 relative">
                     <div>
                       <h2 className="text-center text-lg sm:text-xl font-bold text-gray-800">
@@ -56,7 +56,7 @@ const Trips = () => {
                     </div>
 
                     {/* زر Book Now */}
-                   
+
                     <Link
                       onClick={() => {
                         handleBooking(trip);

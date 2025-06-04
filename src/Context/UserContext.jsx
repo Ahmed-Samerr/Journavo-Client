@@ -25,6 +25,10 @@ const UserContextProvider = ({ children }) => {
     }
   };
 
+  const handleWishList = (id) => {
+    addToWishList(`/user/wishList/${id}`, setUser, setLoading, setAnimate);
+  };
+
   // Auto-disable loading and animation after timeout
   useEffect(() => {
     const timeoutId = setTimeout(() => {
