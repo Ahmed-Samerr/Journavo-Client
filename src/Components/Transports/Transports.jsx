@@ -1,13 +1,18 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { getImages } from "../../connection/services";
+import { useNavigate } from "react-router-dom";
+import { addToWishList, getImages } from "../../connection/services";
 import { UserContext } from "../../Context/UserContext";
 
 const Transports = () => {
   const navigate = useNavigate();
-  const { handleBooking } = useContext(UserContext);
+  const { handleBooking, setUser, setLoading, setAnimate } =
+    useContext(UserContext);
   //Data holder from the backend
   const [category, setCategory] = useState([]);
+
+  const handleWishList = (id) => {
+    addToWishList(`/user/wishList/${id}`, setUser, setLoading, setAnimate);
+  };
 
   useEffect(() => {
     getImages("/data/all", setCategory);
@@ -35,13 +40,15 @@ const Transports = () => {
                   />
 
                   {/* زر القلب على شكل دائرة */}
-                  <Link
-                    to="/wishlist"
+                  <button
+                    onClick={() => {
+                      handleWishList(Transportation._id);
+                    }}
                     className="absolute right-4 top-4 bg-gray-200 text-gray-600 rounded-full w-10 h-10 flex items-center justify-center hover:bg-red-100 hover:text-red-600 transition duration-300 shadow"
                     title="Add to Wishlist"
                   >
                     ♥
-                  </Link>
+                  </button>
 
                   <div className="p-4">
                     <h2 className="text-center text-xl font-bold text-gray-800">
