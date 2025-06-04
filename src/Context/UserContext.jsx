@@ -16,8 +16,12 @@ const UserContextProvider = ({ children }) => {
     setDetails(dataDetails);
   };
 
-  // Handle window resize for mobile detection
+  // Auto-disable loading and animation after timeout
   useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setLoading(false);
+      setAnimate(false);
+    }, 3000);
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 425);
     };
@@ -28,17 +32,11 @@ const UserContextProvider = ({ children }) => {
       setLogin(false);
     }
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
-  // Auto-disable loading and animation after timeout
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setLoading(false);
-      setAnimate(false);
-    }, 3000);
-
-    return () => clearTimeout(timeoutId);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []); // added [] to avoid running on every render
 
   return (

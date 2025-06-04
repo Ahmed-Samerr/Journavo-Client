@@ -77,6 +77,7 @@ export async function removeItemFromWishlist(
       headers: { Authorization: localStorage.getItem("token") },
     })
     .then((res) => {
+      localStorage.setItem("user", JSON.stringify(res.data.data));
       setUser(res.data.data);
       setLoading(false);
       setAnimate(false);

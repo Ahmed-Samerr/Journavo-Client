@@ -181,7 +181,7 @@ export default function Navbar() {
             to="/login"
             onClick={() => setMenuOpen(false)}
             className="text-blue-600"
-            style={{ display: userLogin !== null ? "none" : "block" }}
+            style={{ display: isLogin !== null ? "none" : "block" }}
           >
             Login
           </Link>
@@ -189,7 +189,7 @@ export default function Navbar() {
             to="/register"
             onClick={() => setMenuOpen(false)}
             className="text-blue-600"
-            style={{ display: userLogin !== null ? "none" : "block" }}
+            style={{ display: isLogin !== null ? "none" : "block" }}
           >
             Register
           </Link>

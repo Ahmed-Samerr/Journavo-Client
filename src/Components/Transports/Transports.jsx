@@ -1,15 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getImages } from "../../connection/services";
 import { UserContext } from "../../Context/UserContext";
 
 const Transports = () => {
-<<<<<<< HEAD
-=======
   const navigate = useNavigate();
   const { handleBooking } = useContext(UserContext);
   //Data holder from the backend
->>>>>>> 2f4ea395664e364587917b5067ad52cf2be802fb
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
