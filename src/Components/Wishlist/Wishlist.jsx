@@ -1,35 +1,27 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import alex from "../../assets/alex.jpg";
-import siwa from "../../assets/siwa.jpg";
+import { UserContext } from "../../Context/UserContext";
+import { removeItemFromWishlist } from "../../connection/services";
 
 const WishlistPage = () => {
-  const [wishlist, setWishlist] = useState([
-    {
-      id: 1,
-      title: "Alexandria Beach Resort",
-      price: 1500,
-      date: "2025-07-20",
-      image: alex,
-    },
-    {
-      id: 2,
-      title: "Safari Adventure in Siwa",
-      price: 2200,
-      date: "2025-08-10",
-      image: siwa,
-    },
-  ]);
+  const { user, setLoading, setUser, setAnimate, isLogin } =
+    useContext(UserContext);
 
   const navigate = useNavigate();
 
   const handleRemove = (id) => {
-    const updatedWishlist = wishlist.filter((item) => item.id !== id);
-    setWishlist(updatedWishlist);
+    setLoading(true);
+    setAnimate(true);
+    removeItemFromWishlist(
+      `/removeItemFromwishlist/${id}`,
+      setUser,
+      setLoading,
+      setAnimate
+    );
   };
 
   const handleAddToCart = () => {
-    navigate("/cart");
+    navigate();
   };
 
   return (
@@ -38,47 +30,48 @@ const WishlistPage = () => {
         Your Wishlist
       </h1>
 
-      {wishlist.length === 0 ? (
-        <p className="text-center text-gray-500 text-lg">
-          Your wishlist is empty.
-        </p>
-      ) : (
-        <div className="overflow-x-auto mb-10 w-full">
-          <table className="w-full bg-white border border-gray-200 shadow-md rounded-xl overflow-hidden text-sm md:text-base text-center">
-            <thead>
-              <tr className="bg-blue-100 text-blue-800">
-                <th className="p-4">Image</th>
-                <th className="p-4">Title</th>
-                <th className="p-4">Available Date</th>
-                <th className="p-4">Price (EGP)</th>
-                <th className="p-4">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="text-center">
-              {wishlist.map((item) => (
-                <tr
-                  key={item.id}
-                  className="border-t border-gray-200 hover:bg-pink-50"
-                >
-                  <td className="p-4">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-16 h-12 sm:w-20 sm:h-16 object-cover rounded"
-                    />
-                  </td>
-                  <td className="p-4 font-medium text-gray-800">
-                    {item.title}
-                  </td>
-                  <td className="p-4 text-gray-600">{item.date}</td>
-                  <td className="p-4 font-semibold text-pink-600">
-                    {item.price}
-                  </td>
-                  <td className="p-4">
-                    <div className="flex flex-col sm:flex-row gap-3 items-center justify-center">
-                      <button
-                        onClick={handleAddToCart}
-                        className="
+      {isLogin ? (
+        user.wishlist.length === 0 ? (
+          <p className="text-center text-gray-500 text-lg">
+            Your wishlist is empty.
+          </p>
+        ) : (
+          <div className="overflow-x-auto mb-10 w-full">
+            <table className="w-full bg-white border border-gray-200 shadow-md rounded-xl overflow-hidden text-sm md:text-base text-center">
+              <thead>
+                <tr className="bg-blue-100 text-blue-800">
+                  <th className="p-4">Image</th>
+                  <th className="p-4">Title</th>
+                  <th className="p-4">Available Date</th>
+                  <th className="p-4">Price (EGP)</th>
+                  <th className="p-4">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="text-center">
+                {user.wishlist.map((item, id) => (
+                  <tr
+                    key={id}
+                    className="border-t border-gray-200 hover:bg-pink-50"
+                  >
+                    <td className="p-4">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-16 h-12 sm:w-20 sm:h-16 object-cover rounded"
+                      />
+                    </td>
+                    <td className="p-4 font-medium text-gray-800">
+                      {item.title}
+                    </td>
+                    <td className="p-4 text-gray-600">{item.date}</td>
+                    <td className="p-4 font-semibold text-pink-600">
+                      {item.price}
+                    </td>
+                    <td className="p-4">
+                      <div className="flex flex-col sm:flex-row gap-3 items-center justify-center">
+                        <button
+                          onClick={() => handleAddToCart(item._id)}
+                          className="
                           w-36 sm:w-32 md:w-40
                           bg-green-100 hover:bg-green-200
                           text-green-600
@@ -88,13 +81,13 @@ const WishlistPage = () => {
                           transition-colors duration-200
                           focus:outline-none focus:ring-2 focus:ring-green-300
                         "
-                      >
-                        Add to Cart
-                      </button>
+                        >
+                          Add to Cart
+                        </button>
 
-                      <button
-                        onClick={() => handleRemove(item.id)}
-                        className="
+                        <button
+                          onClick={() => handleRemove(item._id)}
+                          className="
                           w-36 sm:w-32 md:w-40
                           bg-red-100 hover:bg-red-200
                           text-red-600
@@ -104,16 +97,19 @@ const WishlistPage = () => {
                           transition-colors duration-200
                           focus:outline-none focus:ring-2 focus:ring-red-300
                         "
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )
+      ) : (
+        ""
       )}
     </div>
   );

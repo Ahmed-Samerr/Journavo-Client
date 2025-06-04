@@ -4,11 +4,17 @@ import PropTypes from "prop-types";
 export const UserContext = createContext();
 
 const UserContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
+  const [details, setDetails] = useState({});
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 425);
   const [loading, setLoading] = useState(true);
   const [animate, setAnimate] = useState(true);
   const [isLogin, setLogin] = useState(false);
+
+  const handleBooking = (dataDetails) => {
+    localStorage.setItem("details", JSON.stringify(dataDetails));
+    setDetails(dataDetails);
+  };
 
   // Handle window resize for mobile detection
   useEffect(() => {
@@ -41,6 +47,9 @@ const UserContextProvider = ({ children }) => {
         animate,
         isLogin,
         setLogin,
+        details,
+        setDetails,
+        handleBooking,
       }}
     >
       {children}

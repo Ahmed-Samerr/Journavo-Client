@@ -1,24 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../Context/UserContext";
+import { booking } from "../../connection/services";
 
 const Booking = () => {
+  const { details, setDetails } = useContext(UserContext);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    destination: "",
     checkIn: "",
     checkOut: "",
-    guests: 1,
-    travelClass: "Economy",
+    guests: "",
+    travelClass: "",
     requests: "",
   });
 
   const [errors, setErrors] = useState({}); // لتخزين الأخطاء
 
-  const destinations = ["Cairo", "Alexandria", "Luxor", "Aswan", "Sharm El-Sheikh"];
   const travelClasses = ["Economy", "Business", "VIP"];
 
   useEffect(() => {
@@ -36,30 +34,74 @@ const Booking = () => {
   const validate = () => {
     const newErrors = {};
 
-    if (!formData.name.trim()) newErrors.name = "Name is required.";
-    if (!formData.email.includes("@")) newErrors.email = "Enter a valid email.";
-    if (!formData.phone.trim()) newErrors.phone = "Phone is required.";
-    if (!formData.destination) newErrors.destination = "Select a destination.";
-    if (!formData.checkIn) newErrors.checkIn = "Check-in date is required.";
-    if (!formData.checkOut) newErrors.checkOut = "Check-out date is required.";
-    if (new Date(formData.checkIn) > new Date(formData.checkOut)) {
+    // Helper: Strict date format (YYYY-MM-DD)
+    const isValidDateFormat = (dateStr) => {
+      const regex = /^(1\d{3}|2\d{3})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+      return regex.test(dateStr);
+    };
+
+    // Helper: Ensure it's a real calendar date
+    const isRealDate = (dateStr) => {
+      if (!isValidDateFormat(dateStr)) return false;
+
+      const [year, month, day] = dateStr.split("-").map(Number);
+      const date = new Date(dateStr);
+
+      return (
+        date.getFullYear() === year &&
+        date.getMonth() + 1 === month &&
+        date.getDate() === day
+      );
+    };
+
+    // ✅ Check-in date validation
+    if (!formData.checkIn) {
+      newErrors.checkIn = "Check-in date is required.";
+    } else if (!isRealDate(formData.checkIn)) {
+      newErrors.checkIn = "Check-in date format is invalid or not a real date.";
+    }
+
+    // ✅ Check-out date validation
+    if (!formData.checkOut) {
+      newErrors.checkOut = "Check-out date is required.";
+    } else if (!isRealDate(formData.checkOut)) {
+      newErrors.checkOut =
+        "Check-out date format is invalid or not a real date.";
+    }
+
+    // ✅ Logical comparison
+    if (
+      isRealDate(formData.checkIn) &&
+      isRealDate(formData.checkOut) &&
+      new Date(formData.checkIn) > new Date(formData.checkOut)
+    ) {
       newErrors.checkOut = "Check-out must be after check-in.";
     }
-    if (formData.guests < 1) newErrors.guests = "At least 1 guest is required.";
+
+    // ✅ Guest validation
+    const guests = Number(formData.guests);
+    if (!formData.guests) {
+      newErrors.guests = "Number of guests is required.";
+    } else if (isNaN(guests) || guests < 1 || !Number.isInteger(guests)) {
+      newErrors.guests = "Please enter a valid number of guests.";
+    }
 
     setErrors(newErrors);
-
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      navigate("/booking-success");
+      booking(`/user/booking/${details._id}`, formData);
     } else {
       alert("Please fix the errors in the form.");
     }
   };
+
+  useEffect(() => {
+    setDetails(JSON.parse(localStorage.getItem("details")));
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-white py-32 px-4 md:px-16 animate-fade-in">
@@ -71,72 +113,16 @@ const Booking = () => {
         onSubmit={handleSubmit}
         className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8 space-y-6"
       >
-        {/* Name & Email */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-gray-700 mb-2">Full Name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className={`w-full border ${
-                errors.name ? "border-red-500" : "border-gray-300"
-              } rounded px-4 py-2 focus:ring-2 focus:ring-blue-500`}
-            />
-            {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className={`w-full border ${
-                errors.email ? "border-red-500" : "border-gray-300"
-              } rounded px-4 py-2 focus:ring-2 focus:ring-blue-500`}
-            />
-            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-          </div>
+        <div>
+          <img
+            src={details.image}
+            alt="img"
+            className="w-full h-auto object-cover rounded-2xl shadow-lg border-4 border-gray-200"
+          />
+          <h3 className="mb-10 mt-4 text-blue-800 text-2xl font-bold text-center tracking-wide">
+            {details.title}
+          </h3>
         </div>
-
-        {/* Phone & Destination */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-gray-700 mb-2">Phone Number</label>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className={`w-full border ${
-                errors.phone ? "border-red-500" : "border-gray-300"
-              } rounded px-4 py-2 focus:ring-2 focus:ring-blue-500`}
-            />
-            {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
-          </div>
-          <div>
-            <label className="block text-gray-700 mb-2">Destination</label>
-            <select
-              name="destination"
-              value={formData.destination}
-              onChange={handleChange}
-              className={`w-full border ${
-                errors.destination ? "border-red-500" : "border-gray-300"
-              } rounded px-4 py-2 focus:ring-2 focus:ring-blue-500`}
-            >
-              <option value="">Select a destination</option>
-              {destinations.map((dest, index) => (
-                <option key={index} value={dest}>
-                  {dest}
-                </option>
-              ))}
-            </select>
-            {errors.destination && <p className="text-red-500 text-sm">{errors.destination}</p>}
-          </div>
-        </div>
-
         {/* Dates */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
@@ -150,7 +136,9 @@ const Booking = () => {
                 errors.checkIn ? "border-red-500" : "border-gray-300"
               } rounded px-4 py-2 focus:ring-2 focus:ring-blue-500`}
             />
-            {errors.checkIn && <p className="text-red-500 text-sm">{errors.checkIn}</p>}
+            {errors.checkIn && (
+              <p className="text-red-500 text-sm">{errors.checkIn}</p>
+            )}
           </div>
           <div>
             <label className="block text-gray-700 mb-2">Check-out Date</label>
@@ -163,7 +151,9 @@ const Booking = () => {
                 errors.checkOut ? "border-red-500" : "border-gray-300"
               } rounded px-4 py-2 focus:ring-2 focus:ring-blue-500`}
             />
-            {errors.checkOut && <p className="text-red-500 text-sm">{errors.checkOut}</p>}
+            {errors.checkOut && (
+              <p className="text-red-500 text-sm">{errors.checkOut}</p>
+            )}
           </div>
         </div>
 
@@ -181,7 +171,9 @@ const Booking = () => {
                 errors.guests ? "border-red-500" : "border-gray-300"
               } rounded px-4 py-2 focus:ring-2 focus:ring-blue-500`}
             />
-            {errors.guests && <p className="text-red-500 text-sm">{errors.guests}</p>}
+            {errors.guests && (
+              <p className="text-red-500 text-sm">{errors.guests}</p>
+            )}
           </div>
           <div>
             <label className="block text-gray-700 mb-2">Travel Class</label>
@@ -209,8 +201,8 @@ const Booking = () => {
             onChange={handleChange}
             rows="4"
             placeholder="Anything else we should know?"
-            className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-blue-500"
-          ></textarea>
+            className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-blue-500 resize-none overflow-y-scroll"
+          />
         </div>
 
         {/* Submit Button */}

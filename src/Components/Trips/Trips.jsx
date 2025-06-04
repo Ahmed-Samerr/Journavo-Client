@@ -1,8 +1,11 @@
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getImages } from "../../connection/services";
+import { UserContext } from "../../Context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Trips = () => {
+  const navigate = useNavigate();
+  const { handleBooking } = useContext(UserContext);
   //Data holder from the backend
   const [category, setCategory] = useState([]);
 
@@ -21,34 +24,37 @@ const Trips = () => {
         {category.length > 0
           ? category
               .filter((d) => d.category === "Trips")
-              .map((Trips, i) => (
+              .map((trip, i) => (
                 <div
                   key={i}
                   className="bg-white rounded-xl shadow-lg overflow-hidden transform transition-transform hover:scale-105 duration-300 animate-fade-in flex flex-col"
                 >
                   <img
-                    src={Trips.image}
-                    alt={Trips.image}
+                    src={trip.image}
+                    alt={trip.image}
                     className="w-full h-48 sm:h-56 md:h-64 object-cover"
                   />
                   <div className="p-4 sm:p-6 flex flex-col justify-between h-48 sm:h-52">
                     <div className="">
                       <h2 className="text-center text-lg sm:text-xl font-bold text-gray-800">
-                        {Trips.title}
+                        {trip.title}
                       </h2>
                       <p className="text-gray-600 text-center mt-1 text-sm sm:text-base">
-                        {Trips.location}
+                        {trip.location}
                       </p>
                       <p className="text-blue-600 text-center font-semibold mt-2 text-sm sm:text-base">
-                        {Trips.price} EGP / person
+                        {trip.price} EGP / person
                       </p>
                     </div>
-                    <Link
-                      to="/booking"
+                    <button
+                      onClick={() => {
+                        handleBooking(trip);
+                        navigate("/booking");
+                      }}
                       className=" mt-4 w-full bg-blue-600 text-white text-center py-2 text-sm sm:text-base rounded-lg hover:bg-blue-700 transition-all duration-300"
                     >
                       Book Now
-                    </Link>
+                    </button>
                   </div>
                 </div>
               ))
