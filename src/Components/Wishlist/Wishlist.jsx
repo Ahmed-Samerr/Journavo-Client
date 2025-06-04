@@ -4,7 +4,7 @@ import { UserContext } from "../../Context/UserContext";
 import { removeItemFromWishlist } from "../../connection/services";
 
 const WishlistPage = () => {
-  const { user, setLoading, setUser, setAnimate, isLogin } =
+  const { user, setLoading, setUser, setAnimate, isLogin, setDetails } =
     useContext(UserContext);
 
   const navigate = useNavigate();
@@ -19,8 +19,9 @@ const WishlistPage = () => {
       setAnimate
     );
   };
-
-  const handleAddToCart = () => {
+  const handleAddToCar = async (item, navigate) => {
+    localStorage.setItem("details", JSON.stringify(item));
+    await setDetails(item);
     navigate("/booking");
   };
 
@@ -70,7 +71,7 @@ const WishlistPage = () => {
                     <td className="p-4">
                       <div className="flex flex-col sm:flex-row gap-3 items-center justify-center">
                         <button
-                          onClick={() => handleAddToCart(item._id)}
+                          onClick={() => handleAddToCar(item, navigate)}
                           className="
                           w-36 sm:w-32 md:w-40
                           bg-green-100 hover:bg-green-200

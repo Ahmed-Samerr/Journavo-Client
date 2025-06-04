@@ -1,11 +1,10 @@
 import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
 import { booking } from "../../connection/services";
 
 const Booking = () => {
-  const { details, setDetails } = useContext(UserContext);
-  const navigate = useNavigate();
+  const { details, setDetails, setUser, setLoading, setAnimate } =
+    useContext(UserContext);
 
   const [formData, setFormData] = useState({
     checkIn: "",
@@ -93,7 +92,13 @@ const Booking = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      booking(`/user/booking/${details._id}`, formData);
+      booking(
+        `/user/booking/${details._id}`,
+        formData,
+        setUser,
+        setLoading,
+        setAnimate
+      );
     } else {
       alert("Please fix the errors in the form.");
     }
