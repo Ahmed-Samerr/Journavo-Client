@@ -11,13 +11,15 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
 
   function handleLogin(values) {
+    setIsLoading(true);
     checkCredentials(
       `/user/clientType`,
       values,
       setUser,
       setIsLoading,
       navigate,
-      setLogin
+      setLogin,
+      setIsLoading
     );
   }
 

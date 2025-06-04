@@ -23,15 +23,23 @@ export async function checkCredentials(
   navigate,
   setLogin
 ) {
-  await http.client.post(URL, values).then((res) => {
-    if (res.data.data === "user") {
-      login("/user/login", values, setUser, setIsLoading, navigate, setLogin);
-      navigate("/");
-    } else {
-      login("/admin/login", values, setUser, setIsLoading, navigate, setLogin);
-      navigate("/admin");
-    }
-  });
+  await http.client
+    .post(URL, values)
+    .then((res) => {
+      if (res.data.data === "user") {
+        login("/user/login", values, setUser, setIsLoading, navigate, setLogin);
+      } else {
+        login(
+          "/admin/login",
+          values,
+          setUser,
+          setIsLoading,
+          navigate,
+          setLogin
+        );
+      }
+    })
+    .catch(() => setIsLoading(false));
 }
 //Endpoint For User Login
 export async function login(
@@ -49,6 +57,12 @@ export async function login(
       localStorage.setItem("token", res.data.token);
       setUser(res.data.data);
       setLogin(true);
+      setIsLoading(false);
+      if (URL === "/user/login") {
+        navigate("/");
+      } else {
+        navigate("/admin");
+      }
     })
     .catch(() => {
       setIsLoading(false);
