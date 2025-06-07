@@ -24,8 +24,10 @@ export default function Footer() {
               </div>
 
               <p className="mx-auto mt-2 max-w-md text-center leading-relaxed text-white ">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Incidunt consequuntur amet culpa cum itaque neque.
+                " we believe every journey is a chance to create unforgettable
+                memories that’s why we offer seamless bookings, unique travel
+                experiences, and constant support to make your trip smooth and
+                memorable."
               </p>
             </div>
 

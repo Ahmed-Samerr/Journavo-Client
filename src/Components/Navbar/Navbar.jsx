@@ -90,13 +90,13 @@ export default function Navbar() {
             <Link to="/about">About</Link>
           </li>
           <li>
-            <Link to="/cart">Cart</Link>
+            <Link to="/Services">Services</Link>
           </li>
           <li>
             <Link to="/Wishlist">Wishlist</Link>
           </li>
           <li>
-            <Link to="/Services">Services</Link>
+            <Link to="/Cart">Cart</Link>
           </li>
         </ul>
 

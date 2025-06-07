@@ -19,7 +19,13 @@ const CartPage = () => {
     );
   };
 
-  const total = user.totalPrice;
+const total = user.cart.reduce((sum, item) => {
+  const cleanPrice = parseFloat(
+    String(item.price).replace(/,/g, '').trim()
+  );
+  return sum + (isNaN(cleanPrice) ? 0 : cleanPrice);
+}, 0);
+
 
   // دالة التوجيه للصفحة
   const handleConfirmBooking = () => {
