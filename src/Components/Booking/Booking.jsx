@@ -1,13 +1,13 @@
 import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom"; // ✅ استيراد useNavigate
 import { UserContext } from "../../Context/UserContext";
 import { booking } from "../../connection/services";
-import { useNavigate } from "react-router-dom";
 
 const Booking = () => {
   const { details, setDetails, setUser, setLoading, setAnimate } =
     useContext(UserContext);
 
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // ✅ تهيئة useNavigate
 
   const [formData, setFormData] = useState({
     checkIn: "",
@@ -17,8 +17,7 @@ const Booking = () => {
     requests: "",
   });
 
-  const [errors, setErrors] = useState({}); // لتخزين الأخطاء
-
+  const [errors, setErrors] = useState({});
   const travelClasses = ["Economy", "Business", "VIP"];
 
   useEffect(() => {
@@ -28,27 +27,20 @@ const Booking = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-
-    // بمجرد ما يكتب صح، نمسح رسالة الخطأ للـ input ده
     setErrors({ ...errors, [name]: "" });
   };
 
   const validate = () => {
     const newErrors = {};
-
-    // Helper: Strict date format (YYYY-MM-DD)
     const isValidDateFormat = (dateStr) => {
       const regex = /^(1\d{3}|2\d{3})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
       return regex.test(dateStr);
     };
 
-    // Helper: Ensure it's a real calendar date
     const isRealDate = (dateStr) => {
       if (!isValidDateFormat(dateStr)) return false;
-
       const [year, month, day] = dateStr.split("-").map(Number);
       const date = new Date(dateStr);
-
       return (
         date.getFullYear() === year &&
         date.getMonth() + 1 === month &&
@@ -56,14 +48,12 @@ const Booking = () => {
       );
     };
 
-    // ✅ Check-in date validation
     if (!formData.checkIn) {
       newErrors.checkIn = "Check-in date is required.";
     } else if (!isRealDate(formData.checkIn)) {
       newErrors.checkIn = "Check-in date format is invalid or not a real date.";
     }
 
-    // ✅ Check-out date validation
     if (!formData.checkOut) {
       newErrors.checkOut = "Check-out date is required.";
     } else if (!isRealDate(formData.checkOut)) {
@@ -71,7 +61,6 @@ const Booking = () => {
         "Check-out date format is invalid or not a real date.";
     }
 
-    // ✅ Logical comparison
     if (
       isRealDate(formData.checkIn) &&
       isRealDate(formData.checkOut) &&
@@ -80,7 +69,6 @@ const Booking = () => {
       newErrors.checkOut = "Check-out must be after check-in.";
     }
 
-    // ✅ Guest validation
     const guests = Number(formData.guests);
     if (!formData.guests) {
       newErrors.guests = "Number of guests is required.";
@@ -92,6 +80,7 @@ const Booking = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  // ✅ تم تعديل handleSubmit هنا
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
@@ -104,7 +93,10 @@ const Booking = () => {
         setLoading,
         setAnimate,
         navigate
-      );
+      ).then(() => {
+        // ✅ التوجيه بعد نجاح الحجز
+        navigate("/booking-success");
+      });
     } else {
       alert("Please fix the errors in the form.");
     }

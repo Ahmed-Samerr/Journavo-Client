@@ -19,15 +19,20 @@ export default function Footer() {
                   className="mt-6 w-full text-center leading-relaxed text-white font-bold
 "
                 >
-                  JOURNOVA
+                  JOURNAVO
                 </p>
               </div>
 
               <p className="mx-auto mt-2 max-w-md text-center leading-relaxed text-white ">
+<<<<<<< HEAD
                 " we believe every journey is a chance to create unforgettable
                 memories that’s why we offer seamless bookings, unique travel
                 experiences, and constant support to make your trip smooth and
                 memorable."
+=======
+                Discover the beauty of Egypt with seamless hotel bookings,
+                trips, and transport options. Plan your perfect journey today!
+>>>>>>> origin/ahmed-owner
               </p>
             </div>
 
@@ -74,7 +79,7 @@ export default function Footer() {
           </div>
 
           <p className="mt-10 text-center text-sm text-white lg:text-center">
-            JOURNOVA &copy; 2025. All rights reserved.
+            JOURNAVO &copy; 2025. All rights reserved.
           </p>
         </div>
       </footer>
