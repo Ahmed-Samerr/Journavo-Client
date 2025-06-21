@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { addToWishList } from "../connection/services";
+import { addToWishList, getAllUsers } from "../connection/services";
 
 export const UserContext = createContext();
 
@@ -10,7 +10,8 @@ const UserContextProvider = ({ children }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 425);
   const [loading, setLoading] = useState(true);
   const [animate, setAnimate] = useState(true);
-  const [isLogin, setLogin] = useState();
+  const [isLogin, setLogin] = useState(false);
+  const [users, setUsers] = useState([]);
 
   const handleBooking = (dataDetails) => {
     localStorage.setItem("details", JSON.stringify(dataDetails));
@@ -41,6 +42,7 @@ const UserContextProvider = ({ children }) => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 425);
     };
+    getAllUsers("/admin/all", setUsers);
     checkUser();
     window.addEventListener("resize", handleResize);
 
@@ -66,6 +68,8 @@ const UserContextProvider = ({ children }) => {
         setLoading,
         setAnimate,
         handleWishList,
+        setUsers,
+        users,
       }}
     >
       {children}

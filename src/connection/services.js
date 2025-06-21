@@ -149,3 +149,13 @@ export async function removeItemFromCart(URL, setUser, setLoading, setAnimate) {
       setAnimate(false);
     });
 }
+
+//Endpoint to get all users
+export async function getAllUsers(URL, setUsers) {
+  await http.client
+    .get(URL, {
+      headers: { Authorization: localStorage.getItem("token") },
+    })
+    .then((res) => setUsers(res.data.data))
+    .catch((e) => console.log(e.message));
+}
