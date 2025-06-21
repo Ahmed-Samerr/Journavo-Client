@@ -104,8 +104,8 @@ const About = () => {
             </h3>
             <p className="text-gray-600 text-md leading-relaxed">
               We envision a future where local travel is effortless and
-              enjoyable for everyone. Whether your planning a weekend getaway
-              or a full vacation, our platform is here to help you every step of
+              enjoyable for everyone. Whether your planning a weekend getaway or
+              a full vacation, our platform is here to help you every step of
               the way.
             </p>
           </div>
@@ -127,7 +127,7 @@ const About = () => {
         </p>
         <Link to="/Services">
           <motion.button
-            className="bg-blue-700 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-100 transition"
+            className="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

@@ -49,7 +49,7 @@ export default function Register() {
   return (
     <>
       <div className="py-32 px-10 sm:px-6 lg:px-8">
-        <h2 className="font-bold text-2xl sm:text-3xl md:text-4xl text-emerald-600 mb-6 text-center">
+        <h2 className="font-bold text-2xl sm:text-3xl md:text-4xl text-blue-700 mb-6 text-center">
           Register Now
         </h2>
 
@@ -177,7 +177,7 @@ export default function Register() {
           <div className="flex flex-col sm:flex-row gap-4 items-center">
             <button
               type="submit"
-              className="w-auto sm:w-auto text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base sm:text-lg px-10 py-1 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800 transition"
+              className="w-auto sm:w-auto text-white bg-blue-700  hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base sm:text-lg px-10 py-1 text-center transition"
               disabled={isLoading}
             >
               {isLoading ? (

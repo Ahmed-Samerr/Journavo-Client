@@ -19,13 +19,13 @@ export default function Footer() {
                   className="mt-6 w-full text-center leading-relaxed text-white font-bold
 "
                 >
-                  JOURNOVA
+                  JOURNAVO
                 </p>
               </div>
 
               <p className="mx-auto mt-2 max-w-md text-center leading-relaxed text-white ">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Incidunt consequuntur amet culpa cum itaque neque.
+                Discover the beauty of Egypt with seamless hotel bookings,
+                trips, and transport options. Plan your perfect journey today!
               </p>
             </div>
 
@@ -72,7 +72,7 @@ export default function Footer() {
           </div>
 
           <p className="mt-10 text-center text-sm text-white lg:text-center">
-            JOURNOVA &copy; 2025. All rights reserved.
+            JOURNAVO &copy; 2025. All rights reserved.
           </p>
         </div>
       </footer>
