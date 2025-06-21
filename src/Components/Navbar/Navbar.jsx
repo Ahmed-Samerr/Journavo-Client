@@ -12,18 +12,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   function SignOut() {
     setLoading(true);
     setAnimate(true);
@@ -40,6 +28,18 @@ export default function Navbar() {
     }, 10);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <nav
@@ -164,7 +164,7 @@ export default function Navbar() {
               <Link to="/Services">Services</Link>
             </li>
 
-            {isLogin !== null && (
+            {isLogin ? (
               <li
                 onClick={() => {
                   SignOut();
@@ -174,6 +174,19 @@ export default function Navbar() {
               >
                 SignOut
               </li>
+            ) : (
+              <>
+                <li>
+                  <Link to="/login" onClick={() => setMenuOpen(false)}>
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/register" onClick={() => setMenuOpen(false)}>
+                    Register
+                  </Link>
+                </li>
+              </>
             )}
           </>
         )}
@@ -186,7 +199,7 @@ export default function Navbar() {
             to="/login"
             onClick={() => setMenuOpen(false)}
             className="text-blue-600"
-            style={{ display: isLogin !== null ? "none" : "block" }}
+            style={{ display: isLogin === false ? "none" : "block" }}
           >
             Login
           </Link>
@@ -194,7 +207,7 @@ export default function Navbar() {
             to="/register"
             onClick={() => setMenuOpen(false)}
             className="text-blue-600"
-            style={{ display: isLogin !== null ? "none" : "block" }}
+            style={{ display: isLogin === false ? "none" : "block" }}
           >
             Register
           </Link>

@@ -6,8 +6,7 @@ import { useNavigate } from "react-router-dom";
 const WishlistPage = () => {
   const { user, setLoading, setUser, setAnimate, isLogin, setDetails } =
     useContext(UserContext);
- 
-    const navigate = useNavigate
+  const navigate = useNavigate();
 
   const handleRemove = (id) => {
     setLoading(true);
@@ -20,11 +19,11 @@ const WishlistPage = () => {
     );
   };
 
-  const handleAddToCart = async (item , navigate) => {
+  const handleAddToCart = async (item, navigate) => {
     localStorage.setItem("details", JSON.stringify(item));
     await setDetails(item);
-    navigate ("/booking")
-  }
+    navigate("/booking");
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-white py-28 px-4 sm:px-8 md:px-12 lg:px-24 flex flex-col items-center animate-fade-in">
