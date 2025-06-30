@@ -6,7 +6,7 @@ import Cart from "./Components/Cart/Cart";
 import Wishlist from "./Components/Wishlist/Wishlist";
 import Services from "./Components/Services/Services";
 import Loading from "./Components/Loading/loading";
-import Login from "./Components/Login/Login ";
+import Login from "./Components/Login/Login";
 import Notfound from "./Components/Notfound/Notfound";
 import BookingSuccess from "./Components/BookingSuccess/BookingSuccess";
 import Register from "./Components/Register/Register";
@@ -36,10 +36,7 @@ let x = createBrowserRouter([
       { path: "Services", element: <Services /> },
       { path: "Trips", element: <Trips /> },
       { path: "Hotels", element: <Hotels /> },
-      {
-        path: "Transports",
-        element: <Transports />,
-      },
+      { path: "Transports", element: <Transports /> },
       {
         path: "Wishlist",
         element: (
@@ -56,7 +53,6 @@ let x = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-
       {
         path: "Booking",
         element: (
@@ -65,13 +61,10 @@ let x = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-
-      // هُنا مسار صفحة نجاح الحجز لازم يكون هنا قبل مسار النجمة
       {
         path: "booking-success",
         element: <BookingSuccess />,
       },
-
       {
         path: "Admin",
         element: (
@@ -106,8 +99,6 @@ let x = createBrowserRouter([
       },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
-
-      // هذا مسار 404
       { path: "*", element: <Notfound /> },
     ],
   },

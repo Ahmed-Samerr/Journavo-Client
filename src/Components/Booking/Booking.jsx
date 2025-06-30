@@ -1,13 +1,11 @@
 import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ استيراد useNavigate
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
 import { booking } from "../../connection/services";
 
 const Booking = () => {
-  const { details, setDetails, setUser, setLoading, setAnimate } =
-    useContext(UserContext);
-
-  const navigate = useNavigate(); // ✅ تهيئة useNavigate
+  const { details, setDetails, setUser, setLoading, setAnimate } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     checkIn: "",
@@ -18,9 +16,15 @@ const Booking = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [loadingDetails, setLoadingDetails] = useState(true);
   const travelClasses = ["Economy", "Business", "VIP"];
 
   useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem("details"));
+    if (stored) {
+      setDetails(stored);
+    }
+    setLoadingDetails(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
@@ -36,7 +40,6 @@ const Booking = () => {
       const regex = /^(1\d{3}|2\d{3})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
       return regex.test(dateStr);
     };
-
     const isRealDate = (dateStr) => {
       if (!isValidDateFormat(dateStr)) return false;
       const [year, month, day] = dateStr.split("-").map(Number);
@@ -51,14 +54,13 @@ const Booking = () => {
     if (!formData.checkIn) {
       newErrors.checkIn = "Check-in date is required.";
     } else if (!isRealDate(formData.checkIn)) {
-      newErrors.checkIn = "Check-in date format is invalid or not a real date.";
+      newErrors.checkIn = "Invalid or unreal check-in date.";
     }
 
     if (!formData.checkOut) {
       newErrors.checkOut = "Check-out date is required.";
     } else if (!isRealDate(formData.checkOut)) {
-      newErrors.checkOut =
-        "Check-out date format is invalid or not a real date.";
+      newErrors.checkOut = "Invalid or unreal check-out date.";
     }
 
     if (
@@ -71,7 +73,7 @@ const Booking = () => {
 
     const guests = Number(formData.guests);
     if (!formData.guests) {
-      newErrors.guests = "Number of guests is required.";
+      newErrors.guests = "Guests number is required.";
     } else if (isNaN(guests) || guests < 1 || !Number.isInteger(guests)) {
       newErrors.guests = "Please enter a valid number of guests.";
     }
@@ -80,21 +82,12 @@ const Booking = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // ✅ تم تعديل handleSubmit هنا
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
       setLoading(true);
       setAnimate(true);
-      booking(
-        `/user/booking/${details._id}`,
-        formData,
-        setUser,
-        setLoading,
-        setAnimate,
-        navigate
-      ).then(() => {
-        // ✅ التوجيه بعد نجاح الحجز
+      booking(`/user/booking/${details._id}`, formData, setUser, setLoading, setAnimate).then(() => {
         navigate("/booking-success");
       });
     } else {
@@ -102,9 +95,13 @@ const Booking = () => {
     }
   };
 
-  useEffect(() => {
-    setDetails(JSON.parse(localStorage.getItem("details")));
-  }, []);
+  if (loadingDetails || !details) {
+    return (
+      <div className="min-h-screen flex justify-center items-center text-blue-800 text-xl">
+        Loading booking details...
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-white py-32 px-4 md:px-16 animate-fade-in">
@@ -126,7 +123,7 @@ const Booking = () => {
             {details.title}
           </h3>
         </div>
-        {/* Dates */}
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-gray-700 mb-2">Check-in Date</label>
@@ -139,10 +136,9 @@ const Booking = () => {
                 errors.checkIn ? "border-red-500" : "border-gray-300"
               } rounded px-4 py-2 focus:ring-2 focus:ring-blue-500`}
             />
-            {errors.checkIn && (
-              <p className="text-red-500 text-sm">{errors.checkIn}</p>
-            )}
+            {errors.checkIn && <p className="text-red-500 text-sm">{errors.checkIn}</p>}
           </div>
+
           <div>
             <label className="block text-gray-700 mb-2">Check-out Date</label>
             <input
@@ -154,13 +150,10 @@ const Booking = () => {
                 errors.checkOut ? "border-red-500" : "border-gray-300"
               } rounded px-4 py-2 focus:ring-2 focus:ring-blue-500`}
             />
-            {errors.checkOut && (
-              <p className="text-red-500 text-sm">{errors.checkOut}</p>
-            )}
+            {errors.checkOut && <p className="text-red-500 text-sm">{errors.checkOut}</p>}
           </div>
         </div>
 
-        {/* Guests & Class */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-gray-700 mb-2">Number of Guests</label>
@@ -174,9 +167,7 @@ const Booking = () => {
                 errors.guests ? "border-red-500" : "border-gray-300"
               } rounded px-4 py-2 focus:ring-2 focus:ring-blue-500`}
             />
-            {errors.guests && (
-              <p className="text-red-500 text-sm">{errors.guests}</p>
-            )}
+            {errors.guests && <p className="text-red-500 text-sm">{errors.guests}</p>}
           </div>
           <div>
             <label className="block text-gray-700 mb-2">Travel Class</label>
@@ -195,7 +186,6 @@ const Booking = () => {
           </div>
         </div>
 
-        {/* Special Requests */}
         <div>
           <label className="block text-gray-700 mb-2">Special Requests</label>
           <textarea
@@ -208,7 +198,6 @@ const Booking = () => {
           />
         </div>
 
-        {/* Submit Button */}
         <button
           type="submit"
           className="w-full bg-blue-600 text-white font-semibold py-3 rounded hover:bg-blue-700 transition duration-300"

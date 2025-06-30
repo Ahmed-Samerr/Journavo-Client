@@ -4,9 +4,8 @@ import { UserContext } from "../../Context/UserContext";
 import { removeItemFromCart } from "../../connection/services";
 
 const CartPage = () => {
-  const navigate = useNavigate(); // تهيئة useNavigate
-  const { user, setUser, setLoading, setAnimate, isLogin } =
-    useContext(UserContext);
+  const navigate = useNavigate();
+  const { user, setUser, setLoading, setAnimate, isLogin } = useContext(UserContext);
 
   const handleRemove = (id) => {
     setLoading(true);
@@ -19,15 +18,13 @@ const CartPage = () => {
     );
   };
 
-const total = user.cart.reduce((sum, item) => {
-  const cleanPrice = parseFloat(
-    String(item.price).replace(/,/g, '').trim()
-  );
-  return sum + (isNaN(cleanPrice) ? 0 : cleanPrice);
-}, 0);
+  // ✅ احمي cart من undefined
+  const safeCartItems = user?.cart || [];
+  const total = safeCartItems.reduce((sum, item) => {
+    const cleanPrice = parseFloat(String(item.price).replace(/,/g, '').trim());
+    return sum + (isNaN(cleanPrice) ? 0 : cleanPrice);
+  }, 0);
 
-
-  // دالة التوجيه للصفحة
   const handleConfirmBooking = () => {
     navigate("/Booking");
   };
@@ -49,37 +46,32 @@ const total = user.cart.reduce((sum, item) => {
             </tr>
           </thead>
           <tbody className="text-center">
-            {isLogin &&
-              user.cart.map((item, id) => (
-                <tr
-                  key={id}
-                  id={id}
-                  className="border-t border-gray-200 hover:bg-blue-50"
-                >
-                  <td className="p-4">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-16 h-12 sm:w-20 sm:h-16 object-cover rounded"
-                    />
-                  </td>
-                  <td className="p-4 font-medium text-gray-800">
-                    {item.title}
-                  </td>
-                  <td className="p-4 text-gray-600">{item.date}</td>
-                  <td className="p-4 font-semibold text-blue-700">
-                    {item.price}
-                  </td>
-                  <td className="p-4">
-                    <button
-                      onClick={() => handleRemove(item._id)}
-                      className="bg-red-100 hover:bg-red-200 text-red-600 px-5 py-2  rounded text-xs sm:text-sm font-medium"
-                    >
-                      Remove
-                    </button>
-                  </td>
-                </tr>
-              ))}
+            {isLogin && safeCartItems.map((item, id) => (
+              <tr key={id} className="border-t border-gray-200 hover:bg-blue-50">
+                <td className="p-4">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-16 h-12 sm:w-20 sm:h-16 object-cover rounded"
+                  />
+                </td>
+                <td className="p-4 font-medium text-gray-800">
+                  {item.title}
+                </td>
+                <td className="p-4 text-gray-600">{item.date}</td>
+                <td className="p-4 font-semibold text-blue-700">
+                  {item.price}
+                </td>
+                <td className="p-4">
+                  <button
+                    onClick={() => handleRemove(item._id)}
+                    className="bg-red-100 hover:bg-red-200 text-red-600 px-5 py-2 rounded text-xs sm:text-sm font-medium"
+                  >
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -89,23 +81,10 @@ const total = user.cart.reduce((sum, item) => {
         <button
           onClick={handleConfirmBooking}
           className="
-            w-full
-            max-w-xs
-            md:max-w-sm
-            mx-auto
-            py-3
-            sm:py-4
-            bg-blue-600
-            text-white
-            font-semibold
-            rounded-lg
-            hover:bg-blue-700
-            focus:outline-none
-            focus:ring-4
-            focus:ring-blue-300
-            transition-all
-            duration-300
-            block
+            w-full max-w-xs md:max-w-sm mx-auto py-3 sm:py-4 bg-blue-600
+            text-white font-semibold rounded-lg hover:bg-blue-700
+            focus:outline-none focus:ring-4 focus:ring-blue-300
+            transition-all duration-300 block
           "
         >
           Confirm Booking
