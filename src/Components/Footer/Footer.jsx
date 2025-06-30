@@ -24,15 +24,12 @@ export default function Footer() {
               </div>
 
               <p className="mx-auto mt-2 max-w-md text-center leading-relaxed text-white ">
-<<<<<<< HEAD
-                " we believe every journey is a chance to create unforgettable
+                "we believe every journey is a chance to create unforgettable
                 memories that’s why we offer seamless bookings, unique travel
                 experiences, and constant support to make your trip smooth and
-                memorable."
-=======
-                Discover the beauty of Egypt with seamless hotel bookings,
-                trips, and transport options. Plan your perfect journey today!
->>>>>>> origin/ahmed-owner
+                memorable." Discover the beauty of Egypt with seamless hotel
+                bookings, trips, and transport options. Plan your perfect
+                journey today!
               </p>
             </div>
 
